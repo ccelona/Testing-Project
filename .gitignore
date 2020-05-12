@@ -1,0 +1,14 @@
+target/
+.settings/
+.project
+.classpath
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
