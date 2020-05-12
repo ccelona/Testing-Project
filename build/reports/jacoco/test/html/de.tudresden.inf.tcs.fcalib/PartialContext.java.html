@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PartialContext.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fcalib</a> &gt; <a href="index.source.html" class="el_package">de.tudresden.inf.tcs.fcalib</a> &gt; <span class="el_source">PartialContext.java</span></div><h1>PartialContext.java</h1><pre class="source lang-java linenums">
+package de.tudresden.inf.tcs.fcalib;
+
+import java.util.Set;
+import java.util.HashSet;
+
+// import org.apache.log4j.Logger;
+
+import de.tudresden.inf.tcs.fcaapi.Expert;
+import de.tudresden.inf.tcs.fcaapi.FCAImplication;
+import de.tudresden.inf.tcs.fcaapi.exception.IllegalObjectException;
+import de.tudresden.inf.tcs.fcaapi.exception.IllegalAttributeException;
+import de.tudresden.inf.tcs.fcaapi.utils.IndexedSet;
+import de.tudresden.inf.tcs.fcalib.utils.ListSet;
+
+
+/*
+ * FCAlib: An open-source extensible library for Formal Concept Analysis 
+ *         tool developers
+ * Copyright (C) 2009  Baris Sertkaya
+ *
+ * This file is part of FCAlib.
+ * FCAlib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * FCAlib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with FCAlib.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+/**
+ * A partial context implementation. Extends AbstractContext.
+ * @author Baris Sertkaya
+ * Technische Universtaet Dresden
+ * sertkaya@tcs.inf.tu-dresden.de
+ */
+
+
+public class PartialContext&lt;A,I,O extends PartialObject&lt;A,I&gt;&gt; extends AbstractContext&lt;A,I,O&gt; {
+
+	/**
+	 * The objects of this partial context.
+	 */
+	protected ListSet&lt;O&gt; objects;
+	
+	/**
+	 * The expert for this formal context.
+	 */
+<span class="fc" id="L55">	protected Expert&lt;A,I,O&gt; expert = null;</span>
+	
+	// /**
+	//  * The logger.
+	//  */
+	// private static final Logger logger = Logger.getLogger(PartialContext.class);
+	
+	/**
+	 * Creates a partial context with empty set of objects and attributes.
+	 */
+<span class="fc" id="L65">	public PartialContext() {</span>
+<span class="fc" id="L66">		objects = new ListSet&lt;O&gt;();</span>
+<span class="fc" id="L67">	}</span>
+	
+	/**
+	 * Returns the set of objects of this partial context.
+	 * @return the set of objects of this partial context
+	 */
+	@Override
+	public IndexedSet&lt;O&gt; getObjects() {
+<span class="fc" id="L75">		return objects;</span>
+	}
+	
+	/**
+	 * Returns the object whose name is given.
+	 * @param id the given identifier
+	 * @return the object with name &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;null&lt;/code&gt; if such an object
+	 * does not exist
+	 */
+	public O getObject(I id) {
+<span class="fc bfc" id="L85" title="All 2 branches covered.">		for (O object : getObjects()) {</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">			if (object.getIdentifier().equals(id)) {</span>
+<span class="fc" id="L87">				return object;</span>
+			}
+<span class="fc" id="L89">		}</span>
+<span class="fc" id="L90">		return null;</span>
+	}
+	
+	/**
+	 * Returns the object at the specified index.
+	 * @param index index of the requested object
+	 * @return the object at index &lt;code&gt;index&lt;/code&gt;
+	 */
+	public O getObjectAtIndex(int index) {
+<span class="fc" id="L99">		return objects.getElementAt(index);</span>
+	}
+	
+	/**
+	 * Returns the number of objects of this partial context.
+	 * @return the number of objects in this partial context
+	 */
+	@Override
+	public int getObjectCount() {
+<span class="fc" id="L108">		return getObjects().size();</span>
+	}
+	
+	/**
+	 * Removes a given object from the set of objects of this context.
+	 * @param id identifier of the object to be removed
+	 * @return &lt;code&gt;true&lt;/code&gt; if the object with identifier &lt;code&gt;id&lt;/code&gt; is successfully removed, &lt;code&gt;false&lt;/code&gt;
+	 * otherwise
+	 * @throws IllegalObjectException if &lt;code&gt;object&lt;/code&gt; does not exist
+	 */
+	@Override
+	public boolean removeObject(I id) throws IllegalObjectException {
+<span class="fc" id="L120">		boolean removed = getObjects().remove(getObject(id));</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">		if (!removed) {</span>
+<span class="nc" id="L122">			throw new IllegalObjectException(&quot;Object&quot; + id + &quot;not successfully removed&quot;);</span>
+		}
+<span class="fc" id="L124">		return true;</span>
+	}
+	
+	/**
+	 * Removes a given  object from the set of objects of this context.
+	 * @param object the object to be removed
+	 * @return &lt;code&gt;true&lt;/code&gt; if the object &lt;code&gt;object&lt;/code&gt; is successfully removed, 
+	 * &lt;code&gt;false&lt;/code&gt;  otherwise
+	 * @throws IllegalObjectException if the object &lt;code&gt;object&lt;/code&gt; does not exist
+	 */
+	@Override
+	public boolean removeObject(O object) throws IllegalObjectException {
+<span class="fc" id="L136">		boolean removed = getObjects().remove(object);</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">		if (!removed) {</span>
+<span class="fc" id="L138">			throw new IllegalObjectException(&quot;Object&quot; + object.getIdentifier() + &quot;not successfully removed&quot;);</span>
+		}
+<span class="fc" id="L140">		return true;</span>
+	}
+	
+	/**
+	 * Checks whether this context refutes a given implication, i.e., there exists an object
+	 * that does not respect the given implication.
+	 * @param imp the implication to be tested
+	 * @return &lt;code&gt;true&lt;/code&gt; if all objects in this context respect &lt;code&gt;imp&lt;/code&gt;, 
+	 * &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	@Override
+	public boolean refutes(FCAImplication&lt;A&gt; imp) {
+<span class="fc bfc" id="L152" title="All 2 branches covered.">		for (O object: getObjects()) {</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">			if (object.refutes(imp)) {</span>
+<span class="nc" id="L154">				return true;</span>
+			}
+<span class="fc" id="L156">		}</span>
+<span class="fc" id="L157">		return false;</span>
+	}
+	
+	/**
+	 * Checks whether a counterexample provided by the expert is valid, i.e., it is really
+	 * a counterexample to the given implication.
+	 * @param counterExample the counterexample to be checked for validity
+	 * @param imp the given implication
+	 * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;counterExample&lt;/code&gt; is a valid counterexample to
+	 * &lt;code&gt;imp&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	@Override
+	public boolean isCounterExampleValid(O counterExample, FCAImplication&lt;A&gt; imp) {
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">		if (counterExample.respects(imp)) {</span>
+<span class="fc" id="L171">			return false;</span>
+		}
+<span class="nc" id="L173">		return true;</span>
+	}
+	
+	/** 
+	 * Adds a given object to the set of objects of this context.
+	 * @param o the object to be added
+	 * @return &lt;code&gt;true&lt;/code&gt; 
+	 */
+	@Override
+	// public boolean addObject(O o) throws IllegalObjectException {
+	// 	for (O object : getObjects()) {
+	// 		if (object.getIdentifier().equals(o.getIdentifier())) {
+	// 			throw new IllegalObjectException(&quot;An object with identifier &quot; + object.getIdentifier() + &quot; already exists&quot;);
+	// 		}
+	// 	}
+	// 	getObjects().add(o);
+	// 	return true;
+	// }
+	public boolean addObject(O o) {
+<span class="fc bfc" id="L192" title="All 2 branches covered.">		if (containsObject(o.getIdentifier())) {</span>
+<span class="fc" id="L193">			return false;</span>
+		}
+<span class="fc" id="L195">		getObjects().add(o);</span>
+<span class="fc" id="L196">		return true;</span>
+	}
+	
+	@Override
+	public void clearObjects() {
+<span class="fc" id="L201">		getObjects().clear();</span>
+<span class="fc" id="L202">	}</span>
+	
+	/**
+	 * Adds a given attribute to the attributes of the given object. 
+	 * @param attribute the attribute to be added
+	 * @param id identifier of the object where &lt;code&gt;attribute&lt;/code&gt; is to be added
+	 * @return &lt;code&gt;true&lt;/code&gt; if of the &lt;code&gt;attribute&lt;/code&gt; is successfully added, 
+	 * &lt;code&gt;false&lt;/code&gt; otherwise
+	 * @throws IllegalAttributeException if the object &lt;code&gt;name&lt;/code&gt; already has the attribute
+	 * @throws IllegalObjectException if an object with identifier &lt;code&gt;id&lt;/code&gt; does not exist in this 
+	 * context
+	 */
+	public boolean addAttributeToObject(A attribute, I id) throws IllegalAttributeException,
+	IllegalObjectException {
+<span class="fc bfc" id="L216" title="All 2 branches covered.">		if (!getAttributes().contains(attribute)) {</span>
+<span class="fc" id="L217">			throw new IllegalAttributeException(&quot;Attribute &quot; + attribute + &quot;does not exist&quot;);</span>
+		}
+<span class="fc bfc" id="L219" title="All 2 branches covered.">		if (!containsObject(id)) {</span>
+<span class="fc" id="L220">			throw new IllegalObjectException(&quot;Object &quot; + id + &quot;does not exist&quot;);</span>
+		}
+<span class="fc bfc" id="L222" title="All 2 branches covered.">		if (getObject(id).getDescription().containsAttribute(attribute)) {</span>
+<span class="fc" id="L223">			throw new IllegalAttributeException(&quot;Object already has attribute &quot; + attribute); </span>
+		}
+<span class="fc" id="L225">		return getObject(id).getDescription().addAttribute(attribute);</span>
+	}
+	
+	/**
+	 * Removes a given attribute from the attributes of the given object. 
+	 * @param attribute the attribute to be removed
+	 * @param id the identifier of the object from which  &lt;code&gt;attribute&lt;/code&gt; is to be removed
+	 * @return &lt;code&gt;true&lt;/code&gt; if of the &lt;code&gt;attribute&lt;/code&gt; is successfully removed, 
+	 * &lt;code&gt;false&lt;/code&gt; otherwise
+	 * @throws IllegalAttributeException if the object &lt;code&gt;name&lt;/code&gt;  does not have the attribute
+	 * @throws IllegalObjectException if the an object with idenditifier &lt;code&gt;id&lt;/code&gt; does not exist 
+	 * in this context
+	 */
+	public boolean removeAttributeFromObject(A attribute, I id) throws IllegalAttributeException,
+	IllegalObjectException {
+<span class="fc bfc" id="L240" title="All 2 branches covered.">		if (!getAttributes().contains(attribute)) {</span>
+<span class="fc" id="L241">			throw new IllegalAttributeException(&quot;Attribute &quot; + attribute + &quot;does not exist&quot;);</span>
+		}
+<span class="fc bfc" id="L243" title="All 2 branches covered.">		if (!containsObject(id)) {</span>
+<span class="fc" id="L244">			throw new IllegalObjectException(&quot;Object &quot; + id + &quot;does not exist&quot;);</span>
+		}
+<span class="pc bpc" id="L246" title="1 of 2 branches missed.">		if (!getObject(id).getDescription().containsAttribute(attribute)) {</span>
+<span class="nc" id="L247">			throw new IllegalAttributeException(&quot;Object does not have attribute &quot; + attribute);</span>
+		}
+<span class="fc" id="L249">		return getObject(id).getDescription().removeAttribute(attribute);</span>
+	}
+	
+	/**
+	 * Checks whether a specified object has the specified attribute.
+	 * @param obj object given for check
+	 * @param attribute the attribute given for check
+	 * @return &lt;code&gt;true&lt;/code&gt; if the &lt;code&gt;object&lt;/code&gt; has the &lt;code&gt;attribute&lt;/code&gt;
+	 * &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	// public boolean objectHasAttribute(I id, A attribute) {
+	public boolean objectHasAttribute(O obj, A attribute) {
+		// return getObject(id).getDescription().containsAttribute(attribute);
+<span class="fc" id="L262">		return obj.getDescription().containsAttribute(attribute);</span>
+	}
+	
+	public boolean objectHasNegatedAttribute(O obj, A attribute) {
+<span class="fc" id="L266">		return obj.getDescription().containsNegatedAttribute(attribute);</span>
+	}
+	
+	// /**
+	//  * Checks if this context contains an object with the given name.
+	//  * @param name name of the object to be searched
+	//  * @return &lt;code&gt;true&lt;/code&gt; if an object with name &lt;code&gt;name&lt;/code&gt; is found, 
+	//  * &lt;code&gt;false&lt;/code&gt; otherwise
+	//  */
+	// public boolean containsObject(String name) {
+	// 	if (getObject(name) == null) {
+	// 		return false;
+	// 	}
+	// 	else {
+	// 		return true;
+	// 	}
+	// }
+	
+	/**
+	 * Computes the second derivative of a given set of attributes.
+	 * @param x the attribute set whose second derivative is to be computed
+	 * @return the second derivative of &lt;code&gt;x&lt;/code&gt;
+	 */
+	@Override
+	public Set&lt;A&gt; doublePrime(Set&lt;A&gt; x) {
+<span class="fc" id="L291">		Set&lt;A&gt; tmp = new HashSet&lt;&gt;(getAttributes());</span>
+		
+<span class="fc bfc" id="L293" title="All 2 branches covered.">		for (O object : getObjects()) {</span>
+<span class="pc bpc" id="L294" title="1 of 2 branches missed.">			if (object.getDescription().containsAttributes(x)) {</span>
+<span class="fc" id="L295">				tmp.removeAll(object.getDescription().getNegatedAttributes());</span>
+			}
+<span class="fc" id="L297">		}</span>
+<span class="fc" id="L298">		return tmp;</span>
+	}
+
+	// /**
+	//  * Performs the necessary operations when the expert confirms a question. For instance add the
+	//  * confirmed implication to the base, and update the partial object descriptions with the new 
+	//  * implications. 
+	//  * @param question the question that the expert has confirmed
+	//  */
+	// protected void expertConfirmedQuestion(FCAImplication&lt;A&gt; question) {
+	// 	getImplications().add(question);
+	// 	// TODO: update the descriptions of the partial objects in the context!
+	// }
+	
+	protected boolean followsFromBackgroundKnowledge(FCAImplication&lt;A&gt; implication) {
+		// TODO: 
+<span class="fc" id="L314">		return false;</span>
+	}
+	
+	public Set&lt;FCAImplication&lt;A&gt;&gt; getStemBase() {
+		// TODO: 
+<span class="fc" id="L319">		return null;</span>
+	}
+
+	public Set&lt;FCAImplication&lt;A&gt;&gt; getDuquenneGuiguesBase() {
+		// TODO: 
+<span class="fc" id="L324">		return null;</span>
+	}
+	
+	/**
+	 * Sets the expert for this context to the given expert
+	 * @param e the given expert
+	 */
+	public void setExpert(Expert&lt;A,I,O&gt; e) {
+<span class="fc" id="L332">		expert = e;</span>
+<span class="fc" id="L333">	}</span>
+	
+	/**
+	 * Returns the expert of this context.
+	 * @return the expert of this context
+	 */
+	public Expert&lt;A,I,O&gt; getExpert() {
+<span class="fc" id="L340">		return expert;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

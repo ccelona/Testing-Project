@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractContext.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fcalib</a> &gt; <a href="index.source.html" class="el_package">de.tudresden.inf.tcs.fcalib</a> &gt; <span class="el_source">AbstractContext.java</span></div><h1>AbstractContext.java</h1><pre class="source lang-java linenums">package de.tudresden.inf.tcs.fcalib;
+
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+
+import de.tudresden.inf.tcs.fcaapi.Context;
+import de.tudresden.inf.tcs.fcaapi.FCAImplication;
+import de.tudresden.inf.tcs.fcaapi.FCAObject;
+// import de.tudresden.inf.tcs.fcaapi.Expert;
+import de.tudresden.inf.tcs.fcaapi.action.ExpertAction;
+import de.tudresden.inf.tcs.fcaapi.exception.IllegalAttributeException;
+import de.tudresden.inf.tcs.fcaapi.exception.IllegalObjectException;
+import de.tudresden.inf.tcs.fcaapi.utils.IndexedSet;
+import de.tudresden.inf.tcs.fcalib.utils.ListSet;
+
+/*
+ * FCAlib: An open-source extensible library for Formal Concept Analysis
+ *         tool developers
+ * Copyright (C) 2009  Baris Sertkaya
+ *
+ * This file is part of FCAlib.
+ * FCAlib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * FCAlib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with FCAlib.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+/**
+ * Abstract context implementation to be extended.
+ * 
+ * @author Baris Sertkaya Technische Universtaet Dresden
+ *         sertkaya@tcs.inf.tu-dresden.de
+ */
+
+<span class="fc" id="L44">public abstract class AbstractContext&lt;A, I, O extends FCAObject&lt;A, I&gt;&gt;</span>
+		implements Context&lt;A, I, O&gt; {
+
+	/**
+	 * Attributes of this abstract context.
+	 */
+<span class="fc" id="L50">	private final IndexedSet&lt;A&gt; attributes = new ListSet&lt;A&gt;();</span>
+
+	/**
+	 * The implication set to be used in attribute exploration
+	 */
+	private ImplicationSet&lt;A&gt; implications;
+
+	// /**
+	// * The expert for this context.
+	// */
+	// private Expert&lt;A,I,O&gt; expert = null;
+
+	/**
+	 * The last question asked to the expert.
+	 */
+<span class="fc" id="L65">	private FCAImplication&lt;A&gt; currentQuestion = null;</span>
+
+	/**
+	 * The logger.
+	 */
+<span class="fc" id="L70">	private static final Logger logger = Logger</span>
+<span class="fc" id="L71">			.getLogger(AbstractContext.class);</span>
+
+	/**
+	 * Returns the set of attributes of this context.
+	 * 
+	 * @return the set of attributes
+	 */
+	@Override
+	public IndexedSet&lt;A&gt; getAttributes() {
+<span class="fc" id="L80">		return this.attributes;</span>
+	}
+
+	/**
+	 * Returns the number of attributes of this context.
+	 * 
+	 * @return number of attributes
+	 */
+	@Override
+	public int getAttributeCount() {
+<span class="fc" id="L90">		return getAttributes().size();</span>
+	}
+
+	/**
+	 * Returns the set of objects of this context.
+	 * 
+	 * @return the set of objects
+	 */
+	@Override
+	public abstract IndexedSet&lt;O&gt; getObjects();
+
+	/**
+	 * Returns the number of objects of this context.
+	 * 
+	 * @return number of objects
+	 */
+	@Override
+	public int getObjectCount() {
+<span class="fc" id="L108">		return getObjects().size();</span>
+	}
+
+	/**
+	 * Returns the attribute specified by its index.
+	 * 
+	 * @param index
+	 *            index of the attribute whose name is requested
+	 * @return name of the attribute at index &lt;code&gt;index&lt;/code&gt;
+	 */
+	@Override
+	public A getAttributeAtIndex(int index) {
+<span class="fc" id="L120">		return this.attributes.getElementAt(index);</span>
+	}
+
+	/**
+	 * Adds a given attribute to the attributes of this context.
+	 * 
+	 * @param attribute
+	 *            the attribute to be added
+	 * @return &lt;code&gt;true&lt;/code&gt; if the &lt;code&gt;attribute&lt;/code&gt; is successfully
+	 *         added
+	 * @throws IllegalAttributeException
+	 *             if the given attribute is already in the set of attributes
+	 */
+	@Override
+	public boolean addAttribute(A attribute) throws IllegalAttributeException {
+<span class="fc" id="L135">		boolean added = getAttributes().add(attribute);</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">		if (!added) {</span>
+<span class="fc" id="L137">			throw new IllegalAttributeException(&quot;Attribute &quot; + attribute</span>
+					+ &quot; has already been added&quot;);
+		}
+<span class="fc" id="L140">		return added;</span>
+	}
+
+	/**
+	 * Adds the attributes in a given set to the set of attributes of this
+	 * context.
+	 * 
+	 * @param attrs
+	 *            the set of attributes to be added
+	 * @return &lt;code&gt;true&lt;/code&gt; if all of the &lt;code&gt;attributes&lt;/code&gt; are
+	 *         successfully added
+	 * @throws IllegalAttributeException
+	 *             if one of the attributes in &lt;code&gt;attributes&lt;/code&gt; already
+	 *             occurs in the attributes of this context
+	 */
+	@Override
+	public boolean addAttributes(Set&lt;A&gt; attrs) throws IllegalAttributeException {
+<span class="fc" id="L157">		boolean allAdded = true;</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">		for (A attribute : attrs) {</span>
+<span class="pc bpc" id="L159" title="2 of 4 branches missed.">			allAdded = allAdded &amp;&amp; addAttribute(attribute);</span>
+<span class="fc" id="L160">		}</span>
+<span class="fc" id="L161">		return allAdded;</span>
+	}
+
+	/**
+	 * Adds a given object to the set of objects of this context.
+	 * 
+	 * @param object
+	 *            the object to be added
+	 * @return &lt;code&gt;true&lt;/code&gt; if the &lt;code&gt;object&lt;/code&gt; is successfully
+	 *         added
+	 * @throws IllegalObjectException
+	 *             if an object with the same name already exists in this
+	 *             context
+	 */
+	@Override
+	public abstract boolean addObject(O object) throws IllegalObjectException;
+
+	/**
+	 * Removes an object given with its name from the set of objects of this
+	 * context.
+	 * 
+	 * @param id
+	 *            identifier of the object to be removed
+	 * @return &lt;code&gt;true&lt;/code&gt; if the object named &lt;code&gt;name&lt;/code&gt; is
+	 *         successfully removed, &lt;code&gt;false&lt;/code&gt; otherwise
+	 * @throws IllegalObjectException
+	 *             if an object named &lt;code&gt;name&lt;/code&gt; does not exist in this
+	 *             context
+	 */
+	@Override
+	public abstract boolean removeObject(I id) throws IllegalObjectException;
+
+	/**
+	 * Removes a given object from the set of objects of this context.
+	 * 
+	 * @param object
+	 *            the object to be removed
+	 * @return &lt;code&gt;true&lt;/code&gt; if the object &lt;code&gt;object&lt;/code&gt; is
+	 *         successfully removed, &lt;code&gt;false&lt;/code&gt; otherwise
+	 * @throws IllegalObjectException
+	 *             if the object &lt;code&gt;object&lt;/code&gt; does not exist
+	 */
+	@Override
+	public abstract boolean removeObject(O object)
+			throws IllegalObjectException;
+
+	/**
+	 * Checks if this context contains an object that has a given name.
+	 * 
+	 * @param id
+	 *            identifier of the object to be searched
+	 * @return &lt;code&gt;true&lt;/code&gt; the an object with name &lt;code&gt;name&lt;/code&gt; is
+	 *         found, &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	@Override
+	public boolean containsObject(I id) {
+<span class="fc bfc" id="L217" title="All 2 branches covered.">		if (getObject(id) == null) {</span>
+<span class="fc" id="L218">			return false;</span>
+		} else {
+<span class="fc" id="L220">			return true;</span>
+		}
+	}
+
+	/**
+	 * Adds the objects in a given set of objects to the set of objects of this
+	 * context.
+	 * 
+	 * @param s
+	 *            the set of objects to be added
+	 * @return &lt;code&gt;false&lt;/code&gt; if at least one of the &lt;code&gt;objects&lt;/code&gt; is
+	 *         not successfully added
+	 */
+	@Override
+	public boolean addObjects(Set&lt;O&gt; s) throws IllegalObjectException {
+<span class="fc" id="L235">		boolean retCode = true;</span>
+<span class="fc bfc" id="L236" title="All 2 branches covered.">		for (O object : s) {</span>
+<span class="fc bfc" id="L237" title="All 4 branches covered.">			retCode = retCode &amp;&amp; addObject(object);</span>
+<span class="fc" id="L238">		}</span>
+<span class="fc" id="L239">		return retCode;</span>
+	}
+
+	/**
+	 * Clears the set of objects.
+	 */
+	@Override
+	public void clearObjects() {
+<span class="nc" id="L247">		getObjects().clear();</span>
+<span class="nc" id="L248">	}</span>
+
+	/**
+	 * Adds a given attribute to the attributes of the given object.
+	 * 
+	 * @param attribute
+	 *            the attribute to be added
+	 * @param id
+	 *            identifier of the object where &lt;code&gt;attribute&lt;/code&gt; is to be
+	 *            added
+	 * @return &lt;code&gt;true&lt;/code&gt; if of the &lt;code&gt;attribute&lt;/code&gt; is
+	 *         successfully added, &lt;code&gt;false&lt;/code&gt; otherwise
+	 * @throws IllegalAttributeException
+	 *             if &lt;code&gt;object&lt;/code&gt; already has the attribute
+	 * @throws IllegalObjectException
+	 *             if the &lt;code&gt;object&lt;/code&gt; does not exist in this context
+	 */
+	@Override
+	public abstract boolean addAttributeToObject(A attribute, I id)
+			throws IllegalAttributeException, IllegalObjectException;
+
+	/**
+	 * Returns the current set of implications of this context.
+	 * 
+	 * @return the current set of implications
+	 */
+	@Override
+	public Set&lt;FCAImplication&lt;A&gt;&gt; getImplications() {
+<span class="fc" id="L276">		return this.implications;</span>
+	}
+
+	/**
+	 * Sets the current question to the given implication.
+	 * 
+	 * @param imp
+	 *            the given implication
+	 */
+	protected void setCurrentQuestion(FCAImplication&lt;A&gt; imp) {
+<span class="fc" id="L286">		this.currentQuestion = imp;</span>
+<span class="fc" id="L287">	}</span>
+
+	/**
+	 * Returns the last question asked to the expert.
+	 * 
+	 * @return the last question asked to the expert
+	 */
+	public FCAImplication&lt;A&gt; getCurrentQuestion() {
+<span class="fc" id="L295">		return this.currentQuestion;</span>
+	}
+
+	/**
+	 * Given a premise, returns the next one.
+	 * 
+	 * @param currentPremise
+	 *            the given premise
+	 * @return the next premise coming after &lt;code&gt;currentPremise&lt;/code&gt;
+	 */
+	public Set&lt;A&gt; getNextPremise(Set&lt;A&gt; currentPremise) {
+<span class="fc" id="L306">		return this.implications.nextClosure(currentPremise);</span>
+	}
+
+	/**
+	 * Returns the double prime of a given attribute set of this context.
+	 * 
+	 * @param x
+	 *            the given attribute set
+	 * @return the attribute set that is the double prime of &lt;code&gt;x&lt;/code&gt;
+	 */
+	@Override
+	public abstract Set&lt;A&gt; doublePrime(Set&lt;A&gt; x);
+
+	/**
+	 * Returns the stem base of this context.
+	 * 
+	 * @return the stem base
+	 */
+	@Override
+	public abstract Set&lt;FCAImplication&lt;A&gt;&gt; getStemBase();
+
+	/**
+	 * Checks whether this context refutes a given implication, i.e., there
+	 * exists an object that does not respect the given implication.
+	 * 
+	 * @param imp
+	 *            the implication to be tested
+	 * @return &lt;code&gt;true&lt;/code&gt; if all objects in this context respect
+	 *         &lt;code&gt;imp&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	public abstract boolean refutes(FCAImplication&lt;A&gt; imp);
+
+	/**
+	 * Checks whether a counterexample provided by the expert is valid, i.e., it
+	 * is really a counterexample to the given implication.
+	 * 
+	 * @param counterExample
+	 *            the counterexample to be checked for validity
+	 * @param imp
+	 *            the given implication
+	 * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;counterExample&lt;/code&gt; is a valid
+	 *         counterexample to &lt;code&gt;imp&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	public abstract boolean isCounterExampleValid(O counterExample,
+			FCAImplication&lt;A&gt; imp);
+
+	/**
+	 * Checks whether the expert has already been set.
+	 * 
+	 * @return &lt;code&gt;true&lt;/code&gt; if the &lt;code&gt;expert&lt;/code&gt; has already been
+	 *         set, &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	@Override
+	public boolean isExpertSet() {
+<span class="pc bpc" id="L360" title="1 of 2 branches missed.">		return getExpert() != null;</span>
+	}
+
+	// /**
+	// * Sets the expert for this context to the given expert
+	// * @param e the given expert
+	// */
+	// public void setExpert(Expert&lt;A,I,O&gt; e) {
+	// expert = e;
+	// }
+
+	// /**
+	// * Returns the expert of this context.
+	// * @return the expert of this context
+	// */
+	// public &lt;E extends Expert&lt;A,I,O&gt;&gt; E getExpert() {
+	// return expert;
+	// }
+
+	/**
+	 * Calls the
+	 * {@link de.tudresden.inf.tcs.fcaapi.action.ExpertAction#actionPerformed}
+	 * method of the caught action.
+	 */
+	@Override
+	public void expertPerformedAction(ExpertAction action) {
+<span class="fc" id="L386">		action.actionPerformed(null);</span>
+<span class="fc" id="L387">	}</span>
+
+	// public void expertPerformedAction(ExpertAction&lt;A,O&gt; action) {
+	// switch (action.getType()) {
+	// case Expert.CONFIRMED_QUESTION:
+	// questionConfirmed(action.getQuestion());
+	// break;
+	// case Expert.REJECTED_QUESTION:
+	// questionRejected(action.getQuestion());
+	// break;
+	// case Expert.PROVIDED_COUNTEREXAMPLE:
+	// counterExampleProvided(action.getCounterExample(), action.getQuestion());
+	// break;
+	// case Expert.STARTED_EXPLORATION:
+	// try {
+	// startExploration();
+	// }
+	// catch (IllegalExpertException e) {
+	// e.printStackTrace();
+	// logger.fatal(&quot;First set the expert!&quot;);
+	// System.exit(-1);
+	// }
+	// break;
+	// case Expert.STOPPED_EXPLORATION:
+	// stopExploration();
+	// break;
+	// case Expert.RESET_EXPLORATION:
+	// resetExploration();
+	// break;
+	// case Expert.RESUMED_EXPLORATION:
+	// resumeExploration();
+	// break;
+	// default:
+	// // this shouldn't be the case
+	// logger.fatal(&quot;Illegal expert action type, this shouldn't happen: &quot; +
+	// action.getType());
+	// // System.exit(-1);
+	// }
+	// }
+
+	/**
+	 * Initializes the data structures used in exploration.
+	 */
+	public void initializeExploration() {
+<span class="fc" id="L431">		this.implications = new ImplicationSet&lt;A&gt;(this);</span>
+<span class="fc" id="L432">	}</span>
+
+	// /**
+	// * Performs the necessary operations when the expert confirms a question.
+	// For instance add the
+	// * confirmed implication to the base. Extensions of GenericContext class
+	// can override it to
+	// * perform extra operations like for instance for a DL context add the
+	// implication to the knowledge base
+	// * as a GCI.
+	// * @param question the question that the expert has confirmed
+	// */
+	// public synchronized void questionConfirmed(FCAImplication&lt;A&gt; question) {
+	// logger.info(&quot;Expert confirmed implication: &quot; + question);
+	// implications.add(question);
+	// premise = implications.nextClosure(premise);
+	// continueExploration();
+	// }
+
+	// /**
+	// * Performs the necessary operations when the expert rejects a question.
+	// For instance, ask the expert
+	// * for a counterexample.
+	// * @param question the question that the expert has rejected
+	// */
+	// public synchronized void questionRejected(FCAImplication&lt;A&gt; question) {
+	// logger.info(&quot;Expert rejected implication: &quot; + question);
+	// expert.requestCounterExample(question);
+	// }
+
+	// /**
+	// * Performs the necessary operations when the expert provides a
+	// counterexample. For instance, check
+	// * whether it is valid, and so on.
+	// * @param counterExample the counterexample that the expert has provided
+	// * @param question the question that has been rejected by the expert, and
+	// has resulted in
+	// * &lt;code&gt;counterExample&lt;/code&gt;
+	// */
+	// public synchronized void counterExampleProvided(O counterExample,
+	// FCAImplication&lt;A&gt; question) {
+	// logger.info(&quot;Expert provided counterexample: &quot; + counterExample);
+	// // check whether counterexample is valid
+	// if (isCounterExampleValid(counterExample, question)) {
+	// try {
+	// addObject(counterExample);
+	// // continueExploration(question.getPremise());
+	// continueExploration();
+	// }
+	// catch (IllegalObjectException e) {
+	// expert.counterExampleInvalid(counterExample,
+	// Expert.COUNTEREXAMPLE_EXISTS);
+	// expert.requestCounterExample(question);
+	// }
+	// }
+	// else {
+	// expert.counterExampleInvalid(counterExample,
+	// Expert.COUNTEREXAMPLE_INVALID);
+	// expert.requestCounterExample(question);
+	// }
+	// }
+
+	/**
+	 * Performs the necessary operations when the exploration terminates.
+	 */
+	protected void explorationFinished() {
+<span class="fc" id="L498">		logger.info(&quot;=== Exploration finished ===&quot;);</span>
+<span class="fc" id="L499">		getExpert().explorationFinished();</span>
+<span class="fc" id="L500">	}</span>
+
+	/**
+	 * Checks whether an implication already follows from some background
+	 * knowledge, in case it exists. For instance, in a DL context it would
+	 * check if a given implication (in this case a subsumption relation)
+	 * already follows from the DL knowledge base.
+	 * 
+	 * @param implication
+	 *            implication
+	 * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;implication&lt;/code&gt; already follows
+	 *         from background knowledge, &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	protected abstract boolean followsFromBackgroundKnowledge(
+			FCAImplication&lt;A&gt; implication);
+
+	// /**
+	// * Starts attribute exploration with empty premise.
+	// * @throws IllegalExpertException if the expert has not been set before
+	// starting exploration
+	// */
+	// public synchronized void startExploration() throws IllegalExpertException
+	// {
+	// if (!isExpertSet()) {
+	// throw new IllegalExpertException();
+	// }
+	// premise = new LinkedHashSet&lt;A&gt;();
+	// implications = new ImplicationSet&lt;A&gt;(this);
+	// continueExploration();
+	// logger.info(&quot;== Exploration started ===&quot;);
+	// }
+
+	// /**
+	// * Takes necessary actions upon a stop request from the expert.
+	// */
+	// public synchronized void stopExploration() {
+	// logger.info(&quot;=== Expert stopped exploration ===&quot;);
+	// }
+
+	// /**
+	// * Resets attribute exploration. Clears the set of implications, the set
+	// of objects, the set of
+	// * attributes and the premise. After a call to this method, this context
+	// is ready for a fresh exploration.
+	// */
+	// public synchronized void resetExploration() {
+	// attributes.clear();
+	// clearObjects();
+	// if (implications != null) {
+	// implications.clear();
+	// }
+	// if (premise != null) {
+	// premise.clear();
+	// }
+	// logger.info(&quot;Expert reset exploration&quot;);
+	// }
+
+	// /**
+	// * Resumes a stopped exploration.
+	// */
+	// public synchronized void resumeExploration() {
+	// logger.info(&quot;Expert resumed exploration&quot;);
+	// continueExploration();
+	// }
+
+	/**
+	 * The main method that keeps the exploration going. Given a set of
+	 * attributes, it computes a new left handside using the current
+	 * implications of this context, computes a right handside by using the
+	 * current objects of this context, first checks if the new implication
+	 * already follows from some background knowledge. If yes, the implication
+	 * is added to the current set of implications and the method calls itself
+	 * with the next premise computed by using the new set of implications. If
+	 * not, the expert is requested to answer the implication question.
+	 * Extensions of this class should implement the abstract method
+	 * {@link #followsFromBackgroundKnowledge(FCAImplication)} for their
+	 * specific purposes.
+	 * 
+	 * @param premise
+	 *            premise
+	 */
+	public void continueExploration(Set&lt;A&gt; premise) {
+<span class="fc" id="L582">		Set&lt;A&gt; conclusion = null;</span>
+<span class="fc" id="L583">		Implication&lt;A&gt; implication = null;</span>
+
+<span class="fc" id="L585">		logger.debug(&quot;premise: &quot; + premise);</span>
+<span class="fc bfc" id="L586" title="All 2 branches covered.">		if (premise != null) {</span>
+<span class="fc" id="L587">			conclusion = doublePrime(premise);</span>
+<span class="fc" id="L588">			logger.debug(&quot;conclusion: &quot; + conclusion);</span>
+<span class="fc bfc" id="L589" title="All 2 branches covered.">			if (!premise.equals(conclusion)) {</span>
+<span class="fc" id="L590">				conclusion.removeAll(premise);</span>
+<span class="fc" id="L591">				implication = new Implication&lt;A&gt;(premise, conclusion);</span>
+<span class="fc" id="L592">				this.currentQuestion = implication;</span>
+<span class="pc bpc" id="L593" title="1 of 2 branches missed.">				if (followsFromBackgroundKnowledge(implication)) {</span>
+<span class="nc" id="L594">					logger.debug(&quot;Follows from background knowledge: &quot;</span>
+							+ implication);
+<span class="nc" id="L596">					this.implications.add(implication);</span>
+<span class="nc" id="L597">					premise = this.implications.nextClosure(premise);</span>
+<span class="nc" id="L598">					continueExploration(premise);</span>
+				} else {
+					// if the implication does not follow from the background
+					// knowledge
+					// ask the expert
+<span class="fc" id="L603">					getExpert().askQuestion(implication);</span>
+				}
+			} else {
+				// if the premise is equal to the conclusion
+				// trivial implication, compute the next premise
+<span class="fc" id="L608">				premise = this.implications.nextClosure(premise);</span>
+				// and continue with the next question
+<span class="fc" id="L610">				continueExploration(premise);</span>
+			}
+		} else {
+			// if the premise is null
+			// stop the exploration
+<span class="fc" id="L615">			explorationFinished();</span>
+<span class="fc" id="L616">			logger.debug(&quot;objects: &quot; + getObjects());</span>
+		}
+<span class="fc" id="L618">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,5 +1,6 @@
 package de.tudresden.inf.tcs.fcalib.change;
 
+import de.tudresden.inf.tcs.fcaapi.Context;
 import de.tudresden.inf.tcs.fcaapi.change.ContextChange;
 import de.tudresden.inf.tcs.fcaapi.exception.IllegalContextException;
 import de.tudresden.inf.tcs.fcaapi.exception.IllegalObjectException;
@@ -204,7 +205,6 @@ public class ChangeTest {
      *
      *
      ********************/
-
 
 
 }

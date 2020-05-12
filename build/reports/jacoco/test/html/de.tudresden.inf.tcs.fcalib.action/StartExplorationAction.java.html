@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StartExplorationAction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fcalib</a> &gt; <a href="index.source.html" class="el_package">de.tudresden.inf.tcs.fcalib.action</a> &gt; <span class="el_source">StartExplorationAction.java</span></div><h1>StartExplorationAction.java</h1><pre class="source lang-java linenums">package de.tudresden.inf.tcs.fcalib.action;
+
+import java.util.Collections;
+import java.util.Set;
+
+import java.awt.event.ActionEvent;
+
+import org.apache.log4j.Logger;
+
+import de.tudresden.inf.tcs.fcaapi.FCAObject;
+
+/*
+ * FCAlib: An open-source extensible library for Formal Concept Analysis 
+ *         tool developers
+ * Copyright (C) 2009  Baris Sertkaya
+ *
+ * This file is part of FCAlib.
+ * FCAlib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * FCAlib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with FCAlib.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+/**
+ * The expert action that starts the exploration.
+ * @author Baris Sertkaya
+ * Technische Universtaet Dresden
+ * sertkaya@tcs.inf.tu-dresden.de
+ */
+
+<span class="fc" id="L39">public class StartExplorationAction&lt;A,I,O extends FCAObject&lt;A,I&gt;&gt; extends AbstractExpertAction&lt;A,I,O&gt; {</span>
+
+	/**
+	 * The logger.
+	 */
+<span class="fc" id="L44">	private static final Logger logger = Logger.getLogger(StartExplorationAction.class);</span>
+	
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * First checks if the expert is set, if yes then starts the exploration with 
+	 * an empty initial premise.
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L54">		getContext().initializeExploration();</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">		if (!getContext().isExpertSet()) {</span>
+<span class="nc" id="L56">			logger.fatal(&quot;=== Expert illegal, first set the expert! ===&quot;);</span>
+		}
+		else {
+<span class="fc" id="L59">			logger.info(&quot;== Exploration starting ===&quot;);</span>
+<span class="fc" id="L60">			Set&lt;A&gt; initialPremise = Collections.emptySet();</span>
+<span class="fc" id="L61">			getContext().continueExploration(initialPremise);</span>
+		}
+<span class="fc" id="L63">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

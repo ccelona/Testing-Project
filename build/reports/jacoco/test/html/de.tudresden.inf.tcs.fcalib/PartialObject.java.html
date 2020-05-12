@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PartialObject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fcalib</a> &gt; <a href="index.source.html" class="el_package">de.tudresden.inf.tcs.fcalib</a> &gt; <span class="el_source">PartialObject.java</span></div><h1>PartialObject.java</h1><pre class="source lang-java linenums">/**
+ * Implementation of partial object.
+ * @author Baris Sertkaya
+ */
+package de.tudresden.inf.tcs.fcalib;
+
+import java.util.HashSet;
+import java.util.Set;
+
+// import org.apache.log4j.Logger;
+import de.tudresden.inf.tcs.fcaapi.FCAImplication;
+import de.tudresden.inf.tcs.fcaapi.FCAObject;
+
+/*
+ * FCAlib: An open-source extensible library for Formal Concept Analysis
+ *         tool developers
+ * Copyright (C) 2009  Baris Sertkaya
+ *
+ * This file is part of FCAlib.
+ * FCAlib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * FCAlib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with FCAlib.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+public class PartialObject&lt;A, I&gt; implements FCAObject&lt;A, I&gt; {
+
+	/**
+	 * The identifier of this object.
+	 */
+	private final I identifier;
+
+	/**
+	 * Name of this partial object.
+	 */
+	private String name;
+
+	/**
+	 * Description of this partial object.
+	 */
+	private final PartialObjectDescription&lt;A&gt; description;
+
+	/**
+	 * The logger.
+	 */
+	// private static final Logger logger =
+	// Logger.getLogger(PartialObject.class);
+
+	/**
+	 * Creates a new partial object with empty name and description.
+	 *
+	 * @param id
+	 *            identifier
+	 */
+<span class="fc" id="L63">	public PartialObject(I id) {</span>
+<span class="fc" id="L64">		this.identifier = id;</span>
+<span class="fc" id="L65">		this.name = &quot;&quot;;</span>
+<span class="fc" id="L66">		this.description = new PartialObjectDescription&lt;A&gt;();</span>
+<span class="fc" id="L67">	}</span>
+
+	/**
+	 * Creates a new partial object with a given name and a given set of
+	 * attributes
+	 *
+	 * @param id
+	 *            the name
+	 * @param attrs
+	 *            the initial set of positive attributes
+	 */
+<span class="fc" id="L78">	public PartialObject(I id, Set&lt;A&gt; attrs) {</span>
+<span class="fc" id="L79">		this.identifier = id;</span>
+<span class="fc" id="L80">		this.name = &quot;&quot;;</span>
+<span class="fc" id="L81">		this.description = new PartialObjectDescription&lt;A&gt;(attrs);</span>
+<span class="fc" id="L82">	}</span>
+
+	/**
+	 * Creates a new partial object with a given name and a given set of
+	 * attributes, and a given set of negated attributes
+	 *
+	 * @param id
+	 *            the name
+	 * @param attrs
+	 *            the initial set of attributes
+	 * @param negatedAttrs
+	 *            the initial set of negated attributes
+	 */
+<span class="fc" id="L95">	public PartialObject(I id, Set&lt;A&gt; attrs, Set&lt;A&gt; negatedAttrs) {</span>
+<span class="fc" id="L96">		this.identifier = id;</span>
+<span class="fc" id="L97">		this.name = &quot;&quot;;</span>
+<span class="fc" id="L98">		this.description = new PartialObjectDescription&lt;A&gt;(attrs, negatedAttrs);</span>
+<span class="fc" id="L99">	}</span>
+
+	// public boolean addNegatedAttribute(A attr) {
+	// return description.addNegatedAttribute(attr);
+	// }
+
+	// public Set&lt;A&gt; getNegatedAttributes() {
+	// return description.getNegatedAttributes();
+	// }
+
+	// public Set&lt;A&gt; getAttributes() {
+	// return description.getAttributes();
+	// }
+
+	@Override
+	public boolean respects(FCAImplication&lt;A&gt; imp) {
+<span class="fc" id="L115">		Set&lt;A&gt; tmp = new HashSet&lt;&gt;(imp.getConclusion());</span>
+<span class="fc" id="L116">		tmp.retainAll(getDescription().getNegatedAttributes());</span>
+		// return description.containsAttributes(imp.getPremise()) &amp;&amp;
+		// tmp.isEmpty();
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">		return !getDescription().containsAttributes(imp.getPremise())</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">				|| tmp.isEmpty();</span>
+	}
+
+	public boolean refutes(FCAImplication&lt;A&gt; imp) {
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">		return !respects(imp);</span>
+	}
+
+	// /**
+	// * Checks if the description of this partial object contains the negation
+	// of a given
+	// * attribute.
+	// * @param attr the given attribute
+	// * @return &lt;code&gt;true&lt;/code&gt; if this partial object has the negation of
+	// &lt;code&gt;attr&lt;/code&gt;
+	// */
+	// public boolean hasNegatedAttribute(A attr) {
+	// return description.containsNegatedAttribute(attr);
+	// }
+
+	@Override
+	public PartialObjectDescription&lt;A&gt; getDescription() {
+<span class="fc" id="L141">		return this.description;</span>
+	}
+
+	public void setName(String n) {
+<span class="fc" id="L145">		this.name = n;</span>
+<span class="fc" id="L146">	}</span>
+
+	@Override
+	public String getName() {
+<span class="fc" id="L150">		return this.name;</span>
+	}
+
+	/**
+	 * Returns the identifier of this object.
+	 *
+	 * @return identifier of this object
+	 */
+	@Override
+	public I getIdentifier() {
+<span class="fc" id="L160">		return this.identifier;</span>
+	}
+
+	@Override
+	public String toString() {
+		// return &quot;{name: &quot; + getName() + &quot; plus: &quot; +
+		// description.getAttributes() + &quot; minus: &quot; +
+		// description.getNegatedAttributes() + &quot;}&quot;;
+<span class="fc" id="L168">		return &quot;{id=&quot; + getIdentifier() + &quot; &quot; + getDescription() + &quot;}&quot;;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

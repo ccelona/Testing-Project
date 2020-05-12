@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FullObject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fcalib</a> &gt; <a href="index.source.html" class="el_package">de.tudresden.inf.tcs.fcalib</a> &gt; <span class="el_source">FullObject.java</span></div><h1>FullObject.java</h1><pre class="source lang-java linenums">/**
+ * Implementation of (full) object. 
+ * @author Baris Sertkaya
+ * 
+ */
+
+package de.tudresden.inf.tcs.fcalib;
+
+import java.util.Set;
+
+import de.tudresden.inf.tcs.fcaapi.FCAObject;
+import de.tudresden.inf.tcs.fcaapi.FCAImplication;
+
+
+/*
+ * FCAlib: An open-source extensible library for Formal Concept Analysis 
+ *         tool developers
+ * Copyright (C) 2009  Baris Sertkaya
+ *
+ * This file is part of FCAlib.
+ * FCAlib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * FCAlib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with FCAlib.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+public class FullObject&lt;A,I&gt; implements FCAObject&lt;A,I&gt; {
+
+	/**
+	 * The identifier of this object.
+	 */
+	private I identifier;
+	
+	/**
+	 * Name of this full object.
+	 */
+	private String name;
+	
+	/**
+	 * Description of this object.
+	 */
+	private FullObjectDescription&lt;A&gt; description;
+		
+	/**
+	 * Creates a new full object with the given identifier, and empty name and description.
+	 * @param id the identifier
+	 */
+<span class="fc" id="L56">	public FullObject(I id) {</span>
+<span class="fc" id="L57">		identifier = id;</span>
+<span class="fc" id="L58">		name = &quot;&quot;;</span>
+<span class="fc" id="L59">		description = new FullObjectDescription&lt;A&gt;();</span>
+<span class="fc" id="L60">	}</span>
+	
+	/**
+	 * Creates a new full object with the given identifier and description.
+	 * @param id the identifier
+	 * @param attrs the description
+	 */
+<span class="fc" id="L67">	public FullObject(I id, Set&lt;A&gt; attrs) {</span>
+<span class="fc" id="L68">		identifier = id;</span>
+<span class="fc" id="L69">		name = &quot;&quot;;</span>
+<span class="fc" id="L70">		description = new FullObjectDescription&lt;A&gt;(attrs);</span>
+<span class="fc" id="L71">	}</span>
+	
+	public void setName(String n) {
+<span class="fc" id="L74">		name = n;</span>
+<span class="fc" id="L75">	}</span>
+	
+	// public boolean addAttribute(A attr) {
+	// 	return description.addAttribute(attr);
+	// }
+	
+	// public boolean addAttributes(Set&lt;A&gt; attrs) {
+	// 	return description.addAttributes(attrs);
+	// }
+	
+	// /**
+	//  * Checks if this full object has a given attribute.
+	//  * @param a the given attribute 
+	//  * @return &lt;code&gt;true&lt;/code&gt; if this full object has the attribute &lt;code&gt;a&lt;/code&gt;, 
+	//  * &lt;code&gt;false&lt;/code&gt; otherwise
+	//  */
+	// public boolean hasAttribute(A a) {
+	// 	return description.containsAttribute(a);
+	// }
+	
+	// /**
+	//  * Checks if this full object has the attributes in a given attribute set.
+	//  * @param attrs the given attribute set
+	//  * @return &lt;code&gt;true&lt;/code&gt; if this full object has the attributes in &lt;code&gt;a&lt;/code&gt;, 
+	//  * &lt;code&gt;false&lt;/code&gt; otherwise
+	//  */
+	// public boolean hasAttributes(Set&lt;A&gt; attrs) {
+	// 	return description.containsAttributes(attrs);
+	// }
+
+	public boolean respects(FCAImplication&lt;A&gt; imp) {
+<span class="fc bfc" id="L106" title="All 2 branches covered.">		return !description.containsAttributes(imp.getPremise()) ||</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">			description.containsAttributes(imp.getConclusion());</span>
+	}
+	
+	public boolean refutes(FCAImplication&lt;A&gt; imp) {
+<span class="nc bnc" id="L111" title="All 2 branches missed.">		return !respects(imp);</span>
+	}
+
+	// public Set&lt;A&gt; getAttributes() {
+	// 	return description.getAttributes();
+	// }
+	
+	/**
+	 * Returns the description of this object.
+	 * @return description of this object
+	 */
+	public FullObjectDescription&lt;A&gt; getDescription() {
+<span class="fc" id="L123">		return description;</span>
+	}
+	
+	/**
+	 * Returns the identifier of this object.
+	 * @return identifier of this object
+	 */
+	public I getIdentifier() {
+<span class="fc" id="L131">		return identifier;</span>
+	}
+	
+	/**
+	 * Returns the name of this object.
+	 * @return name of this object
+	 */
+	public String getName() {
+<span class="fc" id="L139">		return name;</span>
+	}
+	
+	/**
+	 * Returns a string representation of this full object.
+	 */
+	public String toString() {
+<span class="fc" id="L146">		return &quot;{id: &quot; + getIdentifier() + &quot; attributes: &quot; + description.getAttributes() + &quot;}&quot;;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

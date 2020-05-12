@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ListSet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fcalib</a> &gt; <a href="index.source.html" class="el_package">de.tudresden.inf.tcs.fcalib.utils</a> &gt; <span class="el_source">ListSet.java</span></div><h1>ListSet.java</h1><pre class="source lang-java linenums">package de.tudresden.inf.tcs.fcalib.utils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
+import de.tudresden.inf.tcs.fcaapi.utils.IndexedSet;
+
+/*
+ * FCAlib: An open-source extensible library for Formal Concept Analysis
+ *         tool developers
+ * Copyright (C) 2009  Baris Sertkaya
+ *
+ * This file is part of FCAlib.
+ * FCAlib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * FCAlib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with FCAlib.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+/**
+ * A set implementation whose elements are ordered and can be accessed with
+ * indices.
+ * 
+ * @author Baris Sertkaya Technische Universtaet Dresden
+ *         sertkaya@tcs.inf.tu-dresden.de
+ */
+
+public class ListSet&lt;T&gt; implements IndexedSet&lt;T&gt; {
+
+	/**
+	 * Elements of this list set.
+	 */
+	private final ArrayList&lt;T&gt; elements;
+
+	/**
+	 * Creates an empty ListSet
+	 *
+	 */
+<span class="fc" id="L48">	public ListSet() {</span>
+<span class="fc" id="L49">		this.elements = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L50">	}</span>
+
+	/**
+	 * Creates a new ListSet that contains the elements of a given collection.
+	 * Duplicate elements in the given collection are inserted once,
+	 * &lt;code&gt;null&lt;/code&gt; element is not allowed.
+	 * 
+	 * @param c
+	 *            the collection whose elements are to be contained in this
+	 *            ListSet initially
+	 */
+<span class="fc" id="L61">	public ListSet(Collection&lt;? extends T&gt; c) {</span>
+<span class="fc" id="L62">		this.elements = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L63">		addAll(c);</span>
+<span class="fc" id="L64">	}</span>
+
+	/**
+	 * Adds a given object to this list set. Does not allow duplicates.
+	 * 
+	 * @param o
+	 *            the object to be added
+	 * @return &lt;code&gt;true&lt;/code&gt; if this list set did not already contain
+	 *         &lt;code&gt;o&lt;/code&gt;
+	 * @throws NullPointerException
+	 *             if the given object is &lt;code&gt;null&lt;/code&gt;
+	 */
+	@Override
+	public boolean add(T o) {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">		if (o == null) {</span>
+<span class="fc" id="L79">			throw new NullPointerException();</span>
+		}
+<span class="fc bfc" id="L81" title="All 2 branches covered.">		for (T element : this.elements) {</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">			if (o.equals(element)) {</span>
+<span class="fc" id="L83">				return false;</span>
+			}
+<span class="fc" id="L85">		}</span>
+<span class="fc" id="L86">		this.elements.add(o);</span>
+<span class="fc" id="L87">		return true;</span>
+	}
+
+	/**
+	 * Adds the elements in a given collection to this list set.
+	 * 
+	 * @param c
+	 *            the collection of elements to be added
+	 * @return &lt;code&gt;true&lt;/code&gt; if this list set changed as a result of the
+	 *         call
+	 */
+	@Override
+	public boolean addAll(Collection&lt;? extends T&gt; c) {
+<span class="fc" id="L100">		boolean retCode = false;</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">		for (T e : c) {</span>
+<span class="fc bfc" id="L102" title="All 4 branches covered.">			retCode = retCode || add(e);</span>
+<span class="fc" id="L103">		}</span>
+<span class="fc" id="L104">		return retCode;</span>
+	}
+
+	/**
+	 * Removes all of the elements from this list set.
+	 */
+	@Override
+	public void clear() {
+<span class="fc" id="L112">		this.elements.clear();</span>
+<span class="fc" id="L113">	}</span>
+
+	/**
+	 * Checks if a given element occurs in this list set.
+	 * 
+	 * @param o
+	 *            the element whose presence is to be tested
+	 * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;o&lt;/code&gt; occurs in this list set,
+	 *         &lt;code&gt;false&lt;/code&gt; otherwise
+	 * @throws NullPointerException
+	 *             if &lt;code&gt;o&lt;/code&gt; is &lt;code&gt;null&lt;/code&gt;
+	 */
+	@Override
+	public boolean contains(Object o) throws NullPointerException {
+<span class="fc bfc" id="L127" title="All 2 branches covered.">		if (o == null) {</span>
+<span class="fc" id="L128">			throw new NullPointerException();</span>
+		}
+<span class="fc bfc" id="L130" title="All 2 branches covered.">		for (T element : this.elements) {</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">			if (o.equals(element)) {</span>
+<span class="fc" id="L132">				return true;</span>
+			}
+<span class="fc" id="L134">		}</span>
+<span class="fc" id="L135">		return false;</span>
+	}
+
+	/**
+	 * Checks if the elements of a given collection are contained in this
+	 * ListSet.
+	 * 
+	 * @param c
+	 *            the given collection whose elements are checked for presence
+	 * @return &lt;code&gt;true&lt;/code&gt; if all elements of &lt;code&gt;c&lt;/code&gt; are contained
+	 *         in this ListSet, &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	@Override
+	public boolean containsAll(Collection&lt;?&gt; c) {
+<span class="fc bfc" id="L149" title="All 2 branches covered.">		for (Iterator&lt;?&gt; it = c.iterator(); it.hasNext();) {</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">			if (!contains(it.next())) {</span>
+<span class="fc" id="L151">				return false;</span>
+			}
+		}
+<span class="fc" id="L154">		return true;</span>
+	}
+
+	/**
+	 * Checks if this ListSet is equal to a given set, i.e., the given set is
+	 * contained in this ListSet and vice versa. For this, it is enough to check
+	 * whether the two sets have the same sizes and this set contains the given
+	 * set.
+	 * 
+	 * @param c
+	 *            collection
+	 * @return &lt;code&gt;true&lt;/code&gt; if this ListSet is equal to &lt;code&gt;c&lt;/code&gt;
+	 */
+	public boolean equals(Collection&lt;?&gt; c) {
+<span class="pc bpc" id="L168" title="1 of 4 branches missed.">		return (c.size() == size()) &amp;&amp; containsAll(c);</span>
+	}
+
+	/**
+	 * Checks if this ListSet is empty.
+	 * 
+	 * @return &lt;code&gt;true&lt;/code&gt; if this ListSet does not contain any elements,
+	 *         &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	@Override
+	public boolean isEmpty() {
+<span class="fc" id="L179">		return this.elements.isEmpty();</span>
+	}
+
+	/**
+	 * Iterator class for ListSet
+	 * 
+	 * @author Baris Sertkaya
+	 *
+	 */
+<span class="fc" id="L188">	public class ListSetIterator implements Iterator&lt;T&gt; {</span>
+<span class="fc" id="L189">		int currentIndex = 0;</span>
+
+		@Override
+		public boolean hasNext() {
+<span class="fc bfc" id="L193" title="All 2 branches covered.">			return this.currentIndex &lt; ListSet.this.elements.size();</span>
+		}
+
+		@Override
+		public T next() {
+<span class="fc" id="L198">			return getElementAt(this.currentIndex++);</span>
+		}
+
+		@Override
+		public void remove() {
+<span class="nc" id="L203">		}</span>
+	}
+
+	/**
+	 * Returns an iterator for this ListSet
+	 */
+	@Override
+	public Iterator&lt;T&gt; iterator() {
+<span class="fc" id="L211">		return new ListSetIterator();</span>
+	}
+
+	/**
+	 * Removes a given element from this ListSet.
+	 * 
+	 * @param o
+	 *            the element to be removed
+	 * @return &lt;code&gt;true&lt;/code&gt; if this ListSet contained the given element,
+	 *         &lt;code&gt;false&lt;/code&gt; otherwise
+	 * @throws NullPointerException
+	 *             if &lt;code&gt;o&lt;/code&gt; is &lt;code&gt;null&lt;/code&gt;
+	 */
+	@Override
+	public boolean remove(Object o) throws NullPointerException {
+<span class="fc bfc" id="L226" title="All 2 branches covered.">		if (o == null) {</span>
+<span class="fc" id="L227">			throw new NullPointerException();</span>
+		}
+<span class="fc bfc" id="L229" title="All 2 branches covered.">		if (contains(o)) {</span>
+<span class="fc" id="L230">			this.elements.remove(o);</span>
+<span class="fc" id="L231">			return true;</span>
+		}
+<span class="fc" id="L233">		return false;</span>
+	}
+
+	/**
+	 * Removes the elements of a given collection from this ListSet.
+	 * 
+	 * @param c
+	 *            the collection whose elements are to be removed
+	 * @return &lt;code&gt;true&lt;/code&gt; if this ListSet changed as a result of the
+	 *         call, &lt;code&gt;false&lt;/code&gt; otherwise
+	 */
+	@Override
+	public boolean removeAll(Collection&lt;?&gt; c) {
+<span class="fc" id="L246">		boolean retCode = false;</span>
+<span class="fc bfc" id="L247" title="All 2 branches covered.">		for (Iterator&lt;?&gt; it = c.iterator(); it.hasNext();) {</span>
+<span class="pc bpc" id="L248" title="2 of 4 branches missed.">			retCode = retCode || remove(it.next());</span>
+		}
+<span class="fc" id="L250">		return retCode;</span>
+	}
+
+	/**
+	 * Removes elements of this ListSet that are not contained in a given
+	 * collection.
+	 * 
+	 * @param c
+	 *            the collection that defines which elements are going to remain
+	 * @return &lt;code&gt;true&lt;/code&gt; if this set changed as a result of the call
+	 */
+	@Override
+	public boolean retainAll(Collection&lt;?&gt; c) {
+<span class="fc" id="L263">		boolean retCode = false;</span>
+<span class="fc bfc" id="L264" title="All 2 branches covered.">		for (T element : this) {</span>
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">			if (!c.contains(element)) {</span>
+<span class="pc bpc" id="L266" title="1 of 4 branches missed.">				retCode = retCode || remove(element);</span>
+			}
+<span class="fc" id="L268">		}</span>
+<span class="fc" id="L269">		return retCode;</span>
+	}
+
+	/**
+	 * Returns the number of elements of this ListSet.
+	 * 
+	 * @return the size of this ListSet
+	 */
+	@Override
+	public int size() {
+<span class="fc" id="L279">		return this.elements.size();</span>
+	}
+
+	/**
+	 * Returns an array containing the elements of this ListSet.
+	 * 
+	 * @return an array containing the elements of this ListSet
+	 */
+	@Override
+	public Object[] toArray() {
+<span class="fc" id="L289">		return this.elements.toArray();</span>
+	}
+
+	/**
+	 * Returns an array containing the elements of this ListSet.
+	 * 
+	 * @param a
+	 *            the array, into which the elements of this ListSet is to be
+	 *            stored
+	 * @return an array containing the elements of this ListSet
+	 */
+	@Override
+	public &lt;E&gt; E[] toArray(E[] a) {
+<span class="fc" id="L302">		return this.elements.toArray(a);</span>
+	}
+
+	/**
+	 * Returns the index of a given element.
+	 * 
+	 * @param e
+	 *            the element whose index is requested
+	 * @return the index of &lt;code&gt;e&lt;/code&gt;, &lt;code&gt;-1&lt;/code&gt; if &lt;code&gt;e&lt;/code&gt; is
+	 *         not found
+	 */
+	@Override
+	public int getIndexOf(T e) {
+<span class="fc bfc" id="L315" title="All 2 branches covered.">		for (int i = 0; i &lt; size(); ++i) {</span>
+<span class="fc bfc" id="L316" title="All 2 branches covered.">			if (e == getElementAt(i)) {</span>
+<span class="fc" id="L317">				return i;</span>
+			}
+		}
+<span class="fc" id="L320">		return -1;</span>
+	}
+
+	/**
+	 * Returns the element at a specified index.
+	 * 
+	 * @param i
+	 *            the index of the requested element
+	 * @return the element at index &lt;code&gt;i&lt;/code&gt;
+	 * @throws IndexOutOfBoundsException
+	 *             if the specified index is out of bounds
+	 */
+	@Override
+	public T getElementAt(int i) throws IndexOutOfBoundsException {
+<span class="fc" id="L334">		return this.elements.get(i);</span>
+	}
+
+	/**
+	 * Changes the order of elements by shifting them right.
+	 */
+	@Override
+	public void changeOrder() {
+<span class="fc" id="L342">		T tmp = getElementAt(0);</span>
+
+<span class="fc bfc" id="L344" title="All 2 branches covered.">		for (int i = 0; i &lt; (size() - 1); ++i) {</span>
+<span class="fc" id="L345">			this.elements.set(i, getElementAt(i + 1));</span>
+		}
+<span class="fc" id="L347">		this.elements.set(size() - 1, tmp);</span>
+<span class="fc" id="L348">	}</span>
+
+	/**
+	 * Returns a string representation of this ordered set.
+	 * 
+	 * @return string representation
+	 */
+	@Override
+	public String toString() {
+<span class="fc bfc" id="L357" title="All 2 branches covered.">		if (isEmpty()) {</span>
+<span class="fc" id="L358">			return &quot;{ }\n&quot;;</span>
+		}
+<span class="fc" id="L360">		String tmp = &quot;{ &quot;;</span>
+<span class="fc bfc" id="L361" title="All 2 branches covered.">		for (Iterator&lt;?&gt; it = iterator(); it.hasNext();) {</span>
+<span class="fc" id="L362">			tmp = tmp + it.next() + &quot; &quot;;</span>
+		}
+<span class="fc" id="L364">		return tmp + &quot;}&quot;;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

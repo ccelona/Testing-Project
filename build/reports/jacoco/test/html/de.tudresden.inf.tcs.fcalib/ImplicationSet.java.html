@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImplicationSet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fcalib</a> &gt; <a href="index.source.html" class="el_package">de.tudresden.inf.tcs.fcalib</a> &gt; <span class="el_source">ImplicationSet.java</span></div><h1>ImplicationSet.java</h1><pre class="source lang-java linenums">/**
+ * An implication set implementation.
+ * @author Baris Sertkaya
+ */
+package de.tudresden.inf.tcs.fcalib;
+
+import java.util.BitSet;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import de.tudresden.inf.tcs.fcaapi.ClosureOperator;
+// import de.tudresden.inf.tcs.fcaapi.FCAObject;
+import de.tudresden.inf.tcs.fcaapi.FCAImplication;
+
+/*
+ * FCAlib: An open-source extensible library for Formal Concept Analysis
+ *         tool developers
+ * Copyright (C) 2009  Baris Sertkaya
+ *
+ * This file is part of FCAlib.
+ * FCAlib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * FCAlib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with FCAlib.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+public class ImplicationSet&lt;A&gt; extends LinkedHashSet&lt;FCAImplication&lt;A&gt;&gt;
+		implements ClosureOperator&lt;A&gt; {
+
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * The base context of this implication set.
+	 */
+	// final private GenericContext&lt;A,? extends FCAObject&lt;A&gt;&gt; theContext;
+	// final private GenericContext&lt;A&gt; theContext;
+	final private AbstractContext&lt;A, ?, ?&gt; theContext;
+
+	/**
+	 * To keeps track of in which premises an attribute occurs.
+	 */
+	private final Hashtable&lt;A, Set&lt;FCAImplication&lt;A&gt;&gt;&gt; occursInPremises;
+
+	/**
+	 * Creates an empty implication set.
+	 * 
+	 * @param context
+	 *            context
+	 */
+	// public ImplicationSet(GenericContext&lt;A,? extends FCAObject&lt;A&gt;&gt; context) {
+	public ImplicationSet(AbstractContext&lt;A, ?, ?&gt; context) {
+<span class="fc" id="L63">		super();</span>
+<span class="fc" id="L64">		this.theContext = context;</span>
+<span class="fc" id="L65">		this.occursInPremises = new Hashtable&lt;&gt;();</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">		for (A attr : context.getAttributes()) {</span>
+<span class="fc" id="L67">			this.occursInPremises.put(attr, new HashSet&lt;&gt;());</span>
+<span class="fc" id="L68">		}</span>
+<span class="fc" id="L69">	}</span>
+
+	/**
+	 * Returns the base context of this implication set.
+	 * 
+	 * @return the base context
+	 */
+	// public GenericContext&lt;A,? extends FCAObject&lt;A&gt;&gt; getContext() {
+	public AbstractContext&lt;A, ?, ?&gt; getContext() {
+<span class="fc" id="L78">		return this.theContext;</span>
+	}
+
+	/**
+	 * Adds an implication to this implication set.
+	 * 
+	 * @param imp
+	 *            the implication to be added
+	 * @return &lt;code&gt;true&lt;/code&gt; if the implication is added, &lt;code&gt;false&lt;/code&gt;
+	 *         if it already exists
+	 */
+	@Override
+	public boolean add(FCAImplication&lt;A&gt; imp) {
+		Set&lt;FCAImplication&lt;A&gt;&gt; tmp;
+<span class="fc bfc" id="L92" title="All 2 branches covered.">		for (A attr : imp.getPremise()) {</span>
+<span class="fc" id="L93">			tmp = this.occursInPremises.get(attr);</span>
+<span class="fc" id="L94">			tmp.add(imp);</span>
+<span class="fc" id="L95">			this.occursInPremises.put(attr, tmp);</span>
+<span class="fc" id="L96">		}</span>
+<span class="fc" id="L97">		return (super.add(imp));</span>
+	}
+
+	/**
+	 * Computes the closure of a given attribute set under this implication set.
+	 * Implementation the linear closure algorithm.
+	 * 
+	 * @param x
+	 *            the attribute set to be closed
+	 * @return the closure of &lt;code&gt;x&lt;/code&gt; under this implication set
+	 */
+	@Override
+	public Set&lt;A&gt; closure(Set&lt;A&gt; x) {
+<span class="fc" id="L110">		Set&lt;A&gt; update = new HashSet&lt;&gt;(x);</span>
+<span class="fc" id="L111">		Set&lt;A&gt; newDep = new LinkedHashSet&lt;&gt;(x);</span>
+<span class="fc" id="L112">		Hashtable&lt;FCAImplication&lt;A&gt;, Integer&gt; premiseSizes = new Hashtable&lt;&gt;();</span>
+
+		// update.addAll(x);
+		// newDep.addAll(x);
+
+<span class="fc bfc" id="L117" title="All 2 branches covered.">		for (FCAImplication&lt;A&gt; imp : this) {</span>
+<span class="fc" id="L118">			premiseSizes.put(imp, imp.getPremise().size());</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">			if (imp.getPremise().isEmpty()) {</span>
+<span class="fc" id="L120">				newDep.addAll(imp.getConclusion());</span>
+<span class="fc" id="L121">				update.addAll(imp.getConclusion());</span>
+			}
+<span class="fc" id="L123">		}</span>
+		// int impId, attrId;
+		A attr;
+<span class="fc bfc" id="L126" title="All 2 branches covered.">		while (!update.isEmpty()) {</span>
+			// attrId = update.firstElement();
+<span class="fc" id="L128">			Iterator&lt;A&gt; it = update.iterator();</span>
+<span class="fc" id="L129">			attr = it.next();</span>
+			// update.removeIndex(attrId);
+<span class="fc" id="L131">			update.remove(attr);</span>
+			// for (int i = 0; i &lt; elementOfPremises[attrId].size(); i++) {
+<span class="fc bfc" id="L133" title="All 2 branches covered.">			for (FCAImplication&lt;A&gt; imp : this.occursInPremises.get(attr)) {</span>
+				// impId = elementOfPremises[attrId].get(i);
+				// tmpPremiseSizes.set(impId, tmpPremiseSizes.get(impId) - 1);
+<span class="fc" id="L136">				int tmp = premiseSizes.get(imp);</span>
+<span class="fc" id="L137">				premiseSizes.put(imp, --tmp);</span>
+				// if (tmpPremiseSizes.get(impId) == 0) {
+<span class="fc bfc" id="L139" title="All 2 branches covered.">				if (tmp == 0) {</span>
+					// add = (get(impId)).getConclusion().difference(newDep);
+					// newDep.addAll(add);
+					// update.addAll(add);
+<span class="fc" id="L143">					update.addAll(imp.getConclusion());</span>
+<span class="fc" id="L144">					update.removeAll(newDep);</span>
+<span class="fc" id="L145">					newDep.addAll(imp.getConclusion());</span>
+				}
+<span class="fc" id="L147">			}</span>
+<span class="fc" id="L148">		}</span>
+<span class="fc" id="L149">		return newDep;</span>
+	}
+
+	/**
+	 * Checks if a given attribute set is closed under this set of implications.
+	 * 
+	 * @param x
+	 *            the attribute set to be checked
+	 * @return &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;x&lt;/code&gt; is closed, &lt;code&gt;false&lt;/code&gt;
+	 *         otherwise
+	 */
+	@Override
+	public boolean isClosed(Set&lt;A&gt; x) {
+<span class="fc" id="L162">		return x.equals(closure(x));</span>
+	}
+
+	/**
+	 * Converts a given set into its bit vector representation.
+	 * 
+	 * @param s
+	 *            the set to be converted to bit vector representation
+	 * @return the bit vector representation of &lt;code&gt;s&lt;/code&gt;
+	 */
+	private BitSet setToBitVector(Set&lt;A&gt; s) {
+<span class="fc" id="L173">		BitSet b = new BitSet(this.theContext.getAttributeCount());</span>
+
+<span class="fc bfc" id="L175" title="All 2 branches covered.">		for (int i = 0; i &lt; this.theContext.getAttributeCount(); ++i) {</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">			if (s.contains(this.theContext.getAttributeAtIndex(i))) {</span>
+<span class="fc" id="L177">				b.set(i);</span>
+			}
+		}
+<span class="fc" id="L180">		return b;</span>
+	}
+
+	/**
+	 * Converts a given bit vector into its set representation.
+	 * 
+	 * @param b
+	 *            the bit vector to be converted to set representation
+	 * @return the set representation of &lt;code&gt;b&lt;/code&gt;
+	 */
+	public Set&lt;A&gt; bitVectorToSet(BitSet b) {
+<span class="fc" id="L191">		Set&lt;A&gt; s = new LinkedHashSet&lt;A&gt;();</span>
+
+<span class="fc bfc" id="L193" title="All 2 branches covered.">		for (int i = 0; i &lt; this.theContext.getAttributeCount(); ++i) {</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">			if (b.get(i)) {</span>
+<span class="fc" id="L195">				s.add(this.theContext.getAttributeAtIndex(i));</span>
+			}
+		}
+<span class="fc" id="L198">		return s;</span>
+	}
+
+	/**
+	 * Given an attribute set &lt;code&gt;x&lt;/code&gt;, returns the closed set coming
+	 * after &lt;code&gt;x&lt;/code&gt; in the lectic order of the closed sets of this
+	 * implication set.
+	 * 
+	 * @param x
+	 *            attribut set
+	 * @return the closed set coming after &lt;code&gt;x&lt;/code&gt;
+	 */
+	public Set&lt;A&gt; nextClosure(Set&lt;A&gt; x) {
+		// AttributeSet&lt;A&gt; tmp = x.clone();
+<span class="fc" id="L212">		BitSet tmp = setToBitVector(x);</span>
+
+		// if (x.cardinality() == theContext.getAttributeCount()) {
+		// return null;
+		// }
+<span class="fc bfc" id="L217" title="All 2 branches covered.">		if (x.size() == this.theContext.getAttributeCount()) {</span>
+<span class="fc" id="L218">			return null;</span>
+		}
+<span class="fc bfc" id="L220" title="All 2 branches covered.">		label: for (int i = this.theContext.getAttributeCount() - 1; i &gt;= 0; i--) {</span>
+			// if (tmp.containsIndex(i)) {
+<span class="fc bfc" id="L222" title="All 2 branches covered.">			if (tmp.get(i)) {</span>
+				// tmp.removeIndex(i);
+<span class="fc" id="L224">				tmp.flip(i);</span>
+			} else {
+				// tmp.addIndex(i);
+<span class="fc" id="L227">				tmp.flip(i);</span>
+				// tmp = closure(tmp);
+<span class="fc" id="L229">				tmp = setToBitVector(closure(bitVectorToSet(tmp)));</span>
+				// for (int j = tmp.nextElement(0); j &gt;= 0 &amp;&amp; j &lt; i; j =
+				// tmp.nextElement(j + 1)) {
+<span class="pc bpc" id="L232" title="1 of 4 branches missed.">				for (int j = tmp.nextSetBit(0); (j &gt;= 0) &amp;&amp; (j &lt; i); j = tmp</span>
+<span class="fc" id="L233">						.nextSetBit(j + 1)) {</span>
+					// if (!x.containsIndex(j)) {
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">					if (!x.contains(this.theContext.getAttributeAtIndex(j))) {</span>
+						// tmp = x.clone();
+<span class="nc" id="L237">						tmp = setToBitVector(x);</span>
+						// tmp.removeIndex(i, theContext.getAttributeCount());
+<span class="nc" id="L239">						tmp.clear(i, this.theContext.getAttributeCount());</span>
+<span class="nc" id="L240">						continue label;</span>
+					}
+				}
+<span class="fc" id="L243">				return bitVectorToSet(tmp);</span>
+			}
+		}
+<span class="fc" id="L246">		return bitVectorToSet(tmp);</span>
+	}
+
+	/**
+	 * Returns the set of closed sets of this implication set that are
+	 * lectically bigger than &lt;code&gt;x&lt;/code&gt;.
+	 * 
+	 * @param x
+	 *            the starting attribute set
+	 * @return set of closed sets that are lectically bigger than &lt;code&gt;x&lt;/code&gt;
+	 */
+	public Set&lt;Set&lt;A&gt;&gt; closuresStartingFrom(Set&lt;A&gt; x) {
+		Set&lt;A&gt; tmp;
+<span class="fc" id="L259">		Set&lt;Set&lt;A&gt;&gt; result = new LinkedHashSet&lt;Set&lt;A&gt;&gt;();</span>
+
+<span class="fc" id="L261">		tmp = closure(x);</span>
+<span class="fc" id="L262">		result.add(tmp);</span>
+<span class="fc" id="L263">		tmp = nextClosure(tmp);</span>
+<span class="fc bfc" id="L264" title="All 2 branches covered.">		while (tmp != null) {</span>
+<span class="fc" id="L265">			result.add(tmp);</span>
+<span class="fc" id="L266">			tmp = nextClosure(tmp);</span>
+		}
+<span class="fc" id="L268">		return result;</span>
+	}
+
+	/**
+	 * Returns the set of all closed sets of this implication set.
+	 * 
+	 * @return the set of all closed sets of this implication set
+	 */
+	@Override
+	public Set&lt;Set&lt;A&gt;&gt; allClosures() {
+<span class="fc" id="L278">		return closuresStartingFrom(new HashSet&lt;&gt;());</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

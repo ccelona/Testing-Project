@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Implication.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fcalib</a> &gt; <a href="index.source.html" class="el_package">de.tudresden.inf.tcs.fcalib</a> &gt; <span class="el_source">Implication.java</span></div><h1>Implication.java</h1><pre class="source lang-java linenums">/**
+ * An implementation of implications in FCA.
+ * @author Baris Sertkaya
+ */
+package de.tudresden.inf.tcs.fcalib;
+
+import java.util.Set;
+import java.util.HashSet;
+
+import de.tudresden.inf.tcs.fcaapi.FCAImplication;
+
+
+/*
+ * FCAlib: An open-source extensible library for Formal Concept Analysis 
+ *         tool developers
+ * Copyright (C) 2009  Baris Sertkaya
+ *
+ * This file is part of FCAlib.
+ * FCAlib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * FCAlib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with FCAlib.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+public class Implication&lt;T&gt; implements FCAImplication&lt;T&gt; {
+	
+	/**
+	 * premise and conclusion of this implication
+	 */
+	final private Set&lt;T&gt; premise, conclusion;
+	
+	/**
+	 * Creates a new implication with empty premise and conclusion.
+	 */
+<span class="fc" id="L43">	public Implication() {</span>
+<span class="fc" id="L44">		premise = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L45">		conclusion = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L46">	}</span>
+	
+	/**
+	 * Creates a new implication with the specified premise and conclusion.
+	 * @param p premise 
+	 * @param c conclusion
+	 */
+<span class="fc" id="L53">	public Implication(Set&lt;T&gt; p, Set&lt;T&gt; c) {</span>
+<span class="fc" id="L54">		premise = p;</span>
+<span class="fc" id="L55">		conclusion = c;</span>
+<span class="fc" id="L56">	}</span>
+	
+	/**
+	 * Returns the conclusion of this implication.
+	 * @return the conclusion
+	 */
+	public Set&lt;T&gt; getConclusion() {
+<span class="fc" id="L63">		return conclusion;</span>
+	}
+	
+	/**
+	 * Returns the premise of this implication.
+	 * @return the premise
+	 */
+	public Set&lt;T&gt; getPremise() {
+<span class="fc" id="L71">		return premise;</span>
+	}
+	
+	/** 
+	 * Checks if this implication is equal to a given implication.
+	 * @param imp implication to be checked for equality
+	 * @return &lt;code&gt;true&lt;/code&gt; if this implication is equal to &lt;code&gt;imp&lt;/code&gt;, 
+	 * false otherwise
+	 */
+	public boolean equals(FCAImplication&lt;T&gt; imp) {
+<span class="pc bpc" id="L81" title="1 of 4 branches missed.">		return premise.equals(imp.getPremise()) &amp;&amp; conclusion.equals(imp.getConclusion());</span>
+	}
+	
+	/**
+	 *  Returns a string representation of this implication.
+	 * @return a string representation
+	 */
+	public String toString() {
+<span class="fc" id="L89">		return premise + &quot; -&gt; &quot; + conclusion;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

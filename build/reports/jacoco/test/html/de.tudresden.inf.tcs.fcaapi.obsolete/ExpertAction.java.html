@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExpertAction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fcalib</a> &gt; <a href="index.source.html" class="el_package">de.tudresden.inf.tcs.fcaapi.obsolete</a> &gt; <span class="el_source">ExpertAction.java</span></div><h1>ExpertAction.java</h1><pre class="source lang-java linenums">/**
+ * Defines expert action event.
+ * @author Baris Sertkaya
+ */
+package de.tudresden.inf.tcs.fcaapi.obsolete;
+
+import java.util.EventObject;
+
+import de.tudresden.inf.tcs.fcaapi.FCAImplication;
+
+public class ExpertAction&lt;T,O extends Object&gt; extends EventObject {
+
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * The question that resulted in this expert action.
+	 */
+	private FCAImplication&lt;T&gt; question;
+
+	/**
+	 * The counterexample provided in response to a question.
+	 */
+	private O counterExample;
+	
+	/**
+	 * The type of this action.
+	 */
+	private int type;
+	
+	/**
+	 * Creates a new expert action event. 
+	 * @param source source of this event
+	 * @param t type of this event
+	 */
+	public ExpertAction(Object source, int t) {
+<span class="fc" id="L36">		super(source);</span>
+<span class="fc" id="L37">		type = t;</span>
+<span class="fc" id="L38">	}</span>
+	
+	/**
+	 * Creates a new expert action event. 
+	 * @param source source of this event
+	 * @param t type of this event
+	 * @param q the question that resulted in this event
+	 */
+	public ExpertAction(Object source, int t, FCAImplication&lt;T&gt; q) {
+<span class="fc" id="L47">		super(source);</span>
+<span class="fc" id="L48">		type = t;</span>
+<span class="fc" id="L49">		question = q;</span>
+<span class="fc" id="L50">	}</span>
+	
+	/**
+	 * Creates a new expert action event.
+	 * @param source source of this event
+	 * @param t type of this event
+	 * @param q the question that resulted in this event
+	 * @param o the counterexample provided with this event
+	 */
+	public ExpertAction(Object source, int t, FCAImplication&lt;T&gt; q, O o) {
+<span class="fc" id="L60">		super(source);</span>
+<span class="fc" id="L61">		type = t;</span>
+<span class="fc" id="L62">		question = q;</span>
+<span class="fc" id="L63">		counterExample = o;</span>
+<span class="fc" id="L64">	}</span>
+
+	/**
+	 * Returns the type of this event
+	 * @return type of this event
+	 */
+	public int getType() {
+<span class="fc" id="L71">		return type;</span>
+	}
+	/**
+	 * Returns the question that resulted in this event.
+	 * @return the question that resulted in this event
+	 */
+	public FCAImplication&lt;T&gt; getQuestion() {
+<span class="fc" id="L78">		return question;</span>
+	}
+	
+	/**
+	 *  Returns the counterexample that is provided with this event.
+	 * @return the counterexample provided by the expert with this event
+	 */
+	 public O getCounterExample() {
+<span class="fc" id="L86">		return counterExample;</span>
+	}
+	 
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
