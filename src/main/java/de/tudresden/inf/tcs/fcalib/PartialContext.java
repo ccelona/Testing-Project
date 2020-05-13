@@ -309,7 +309,7 @@ public class PartialContext<A,I,O extends PartialObject<A,I>> extends AbstractCo
 	// 	// TODO: update the descriptions of the partial objects in the context!
 	// }
 	
-	protected boolean followsFromBackgroundKnowledge(FCAImplication<A> implication) {
+	public boolean followsFromBackgroundKnowledge(FCAImplication<A> implication) {
 		// TODO: 
 		return false;
 	}

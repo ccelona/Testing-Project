@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tudresden.inf.tcs.fcalib.PartialContextTest" tests="56" skipped="0" failures="0" errors="0" timestamp="2020-05-13T03:37:30" hostname="Chrissys-MBP.hsd1.nj.comcast.net" time="0.13">
+  <properties/>
+  <testcase name="objectHasNegatedAttribute" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.016"/>
+  <testcase name="impToString" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.002"/>
+  <testcase name="removeAttributeFromObjectMut" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.003"/>
+  <testcase name="followsFromBackgroundKnowledge" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="followsFromBackgroundKnowledge2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="clearObjects" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="doublePrime" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="getDuquenneGuiguesBase" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.001"/>
+  <testcase name="clone2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.001"/>
+  <testcase name="removeAttributeFromObject2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="removeAttributeFromObject3" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="removeAttributeFromObject4" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="objectNotRemoved" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="addAttributeToObjectMut" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="removeObject" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.001"/>
+  <testcase name="descriptionContainsNegation" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.026"/>
+  <testcase name="getStemBase" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.001"/>
+  <testcase name="refutes2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.001"/>
+  <testcase name="isCounterExampleValid2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="getObject2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="getObjects" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="addNegated" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="removeObject2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="removeObject3" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="addObject" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="getName" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="test" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="abstractContext" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="oddObjectMut" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="setExpert" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="descriptionContainsAttribute" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.001"/>
+  <testcase name="getExpert" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="partialObjectDescription" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.001"/>
+  <testcase name="isCounterExampleValid" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="removeObjectMut" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="getObject" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="objectHasAttribute" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.001"/>
+  <testcase name="toString2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.016"/>
+  <testcase name="removeAttributeFromObject" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="doublePrime2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="doublePrime3" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="refutes" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="objectHasNegatedAttribute2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="objectHasNegatedAttribute3" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="addAttributeToObject2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.001"/>
+  <testcase name="addAttributeToObject3" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="partialObject2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="partialObject" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.003"/>
+  <testcase name="attributeAlreadyAdded" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.003"/>
+  <testcase name="objectHasAttribute2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="objectHasAttribute3" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="setExpert2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.002"/>
+  <testcase name="partialObjectDescription2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="addAttributeToObject" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="ObjectHasNoAttribute" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <testcase name="removeObjectMut2" classname="de.tudresden.inf.tcs.fcalib.PartialContextTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

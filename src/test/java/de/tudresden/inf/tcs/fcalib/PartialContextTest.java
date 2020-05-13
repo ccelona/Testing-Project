@@ -6,6 +6,7 @@ import de.tudresden.inf.tcs.fcaapi.change.ContextChange;
 import de.tudresden.inf.tcs.fcaapi.exception.IllegalAttributeException;
 import de.tudresden.inf.tcs.fcaapi.exception.IllegalObjectException;
 import de.tudresden.inf.tcs.fcaapi.utils.IndexedSet;
+import de.tudresden.inf.tcs.fcalib.action.QuestionConfirmedAction;
 import de.tudresden.inf.tcs.fcalib.change.HistoryManager;
 import de.tudresden.inf.tcs.fcalib.change.NewImplicationChange;
 import org.junit.Rule;
@@ -568,8 +569,6 @@ public class PartialContextTest {
 
         o2.containsNegatedAttribute("o2");
         assertEquals("plus=[o] minus=[o2]", o2.toString());
-
-        o2.clone();
     }
 
     @Test
@@ -673,9 +672,188 @@ public class PartialContextTest {
      *
      ********************/
 
+    @Test
+    public void removeObjectMut() throws IllegalObjectException {
+        /**
+         * public boolean removeObject(I id)
+         * if (!removed)
+         * return true;
+         */
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObject<String, String> o = new PartialObject<>("object");
+        PartialObject<String, String> x = new PartialObject<>("object_2");
 
-
+        test.addObject(o);
+        test.addObject(x);
+        test.getObjects();
+        assertTrue(test.removeObject("object"));
     }
+    @Test
+    public void removeObjectMut2() throws IllegalObjectException {
+        /**
+         * public boolean removeObject(o object)
+         * return true;
+         */
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObject<String, String> o = new PartialObject<>("object");
+        PartialObject<String, String> x = new PartialObject<>("object_2");
+
+        test.addObject(o);
+        test.addObject(x);
+        test.getObjects();
+        assertTrue(test.removeObject(o));
+    }
+
+    @Test
+    public void oddObjectMut() {
+        /**
+         * public boolean addObject(O o)
+         * return false;
+         */
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObject<String, String> o = new PartialObject<>("object");
+
+        test.addObject(o);
+        assertFalse(test.addObject(o));
+    }
+
+    @Test
+    public void addAttributeToObjectMut() throws IllegalObjectException, IllegalAttributeException {
+        /**
+         * public boolean addAttributeToObject(A attribute, I id)
+         * return getObject(id).getDescription().addAttribute(attribute);
+         */
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObject<String, String> o = new PartialObject<>("object");
+
+        test.addObject(o);
+        test.getObject("object");
+        test.addAttribute("a");
+        test.addAttribute("b");
+
+        try {
+            assertTrue(test.addAttributeToObject("a","object"));
+        } catch (IllegalAttributeException e) {
+            e.getClass().equals(IllegalAttributeException.class);
+        }
+    }
+
+    @Test
+    public void removeAttributeFromObjectMut() throws IllegalObjectException, IllegalAttributeException {
+        /**
+         * public boolean removeAttributeFromObject(A attribute, I id)
+         * throw new IllegalAttributeException("Object does not have attribute " + attribute);
+         * return getObject(id).getDescription().removeAttribute(attribute);
+         */
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObject<String, String> o = new PartialObject<>("object");
+
+        test.addObject(o);
+        test.getObject("object");
+        test.addAttribute("a");
+        test.addAttribute("b");
+        test.addAttributeToObject("a", "object");
+
+        try {
+            test.removeAttributeFromObject("b","object");
+        } catch (IllegalAttributeException e) {
+            e.getClass().equals(IllegalAttributeException.class);
+        }
+
+        try {
+            assertTrue(test.removeAttributeFromObject("a","object"));
+        } catch (IllegalAttributeException e) {
+            e.getClass().equals(IllegalAttributeException.class);
+        }
+    }
+
+    @Test
+    public void impToString() {
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObjectDescription<String> o = new PartialObjectDescription<>();
+        Set<String> p = new HashSet<>();
+        Set<String> c = new HashSet<>();
+        Implication<String> imp = new Implication<>(p,c);
+
+        p.add("premise");
+        c.add("conclusion");
+
+        imp.getPremise();
+        imp.getConclusion();
+
+
+        imp.toString();
+        test.toString();
+        assertEquals("[premise] -> [conclusion]", imp.toString());
+    }
+
+    @Test
+    public void toString2() throws IllegalObjectException {
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObject<String, String> o = new PartialObject<>("object");
+
+        test.addObject(o);
+        test.addAttribute("a");
+        test.addAttributeToObject("a", "object");
+
+        o.toString();
+        assertEquals("{id=object plus=[a] minus=[]}", o.toString());
+    }
+
+    @Test
+    public void getName() {
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObject<String, String> o = new PartialObject<>("object");
+
+        o.setName("name");
+        o.getName();
+        assertEquals("name", o.getName());
+    }
+
+    @Test
+    public void addNegated() throws IllegalObjectException {
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObjectDescription<String> o = new PartialObjectDescription<>();
+        Set<String> set = new HashSet<>();
+
+        o.addAttribute("o");
+        assertTrue(o.addNegatedAttribute("o2"));
+        set.add("o2");
+        assertTrue(o.containsNegatedAttributes(set));
+    }
+
+    @Test
+    public void clone2() {
+        PartialObjectDescription<String> o = new PartialObjectDescription<>();
+
+        o.addAttribute("a");
+        o.addNegatedAttribute("b");
+        Set<String> a = o.getAttributes();
+        Set<String> b = o.getNegatedAttributes();
+
+        PartialObjectDescription<String> clone = new PartialObjectDescription<String>(a,b);
+        clone.clone();
+    }
+
+    @Test
+    public void test() throws IllegalObjectException {
+        PartialContext<String, String, PartialObject<String, String>> test = new PartialContext<>();
+        PartialObject<String, String> o = new PartialObject<>("object");
+        PartialObject<String, String> o2 = new PartialObject<>("object2");
+
+        test.addObject(o);
+        test.addObject(o2);
+        test.addAttribute("a");
+        test.addAttribute("b");
+        test.addAttributeToObject("a", "object");
+        test.addAttributeToObject("b", "object2");
+
+        test.getAttributes().clear();
+        test.clearObjects();
+    }
+
+
+}
 
 
 

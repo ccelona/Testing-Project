@@ -3,17 +3,16 @@ package de.tudresden.inf.tcs.fcalib;
 import de.tudresden.inf.tcs.fcaapi.Expert;
 import de.tudresden.inf.tcs.fcaapi.FCAImplication;
 import de.tudresden.inf.tcs.fcaapi.exception.IllegalAttributeException;
-import de.tudresden.inf.tcs.fcaapi.exception.IllegalContextException;
 import de.tudresden.inf.tcs.fcaapi.exception.IllegalObjectException;
 import de.tudresden.inf.tcs.fcaapi.utils.IndexedSet;
-import de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction;
-import org.apache.log4j.BasicConfigurator;
+import de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction;
+import de.tudresden.inf.tcs.fcalib.action.ResetExplorationAction;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.awt.event.ActionEvent;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -520,7 +519,188 @@ public class FormalContextTest {
      *
      ********************/
 
+    @Test
+    public void isClosed3() {
+        FormalContext<String, String> test = new FormalContext<>();
+        Set<String> set = new HashSet<>();
+        Set<String> set2 = test.doublePrime(set);
 
+        test.closure(set2);
+        test.isClosed(set2);
+        assertTrue(set2.equals(set2));
+        assertTrue(test.isClosed(set2));
+    }
+
+    @Test
+    public void clear() throws IllegalObjectException {
+        FormalContext<String, String> test = new FormalContext<>();
+//        Set<String> set = new HashSet<>();
+        FullObject<String, String> o = new FullObject<>("id");
+        FullObject<String, String> o2 = new FullObject<>("id2");
+
+        test.addObject(o);
+        test.addObject(o2);
+        IndexedSet<FullObject<String, String>> set = test.getObjects();
+        assertTrue(set.contains(o));
+        assertTrue(set.contains(o));
+        set.clear();
+    }
+
+    @Test
+    public void addAttributeToObj() throws IllegalObjectException {
+        FormalContext<String, String> test = new FormalContext<>();
+        FullObject<String, String> o = new FullObject<>("object");
+
+        test.addObject(o);
+        test.addAttribute("attr");
+        assertTrue(test.addAttributeToObject("attr", "object"));
+
+    }
+
+    @Test
+    public void getName() {
+        FormalContext<String, String> test = new FormalContext<>();
+        FullObject<String, String> o = new FullObject<>("object");
+
+        o.setName("name");
+        o.getName();
+        assertEquals("name", o.getName());
+    }
+
+    @Test
+    public void toString2() throws IllegalObjectException {
+        FormalContext<String, String> test = new FormalContext<>();
+        FullObject<String, String> o = new FullObject<>("object");
+
+        test.addObject(o);
+        test.addAttribute("a");
+        test.addAttributeToObject("a", "object");
+
+        o.toString();
+        assertEquals("{id: object attributes: [a]}", o.toString());
+    }
+
+    @Test
+    public void clone2() {
+        FormalContext<String, String> test = new FormalContext<>();
+        FullObjectDescription<String> o = new FullObjectDescription<>();
+        o.addAttribute("a");
+        Set<String> attributes = o.getAttributes();
+        FullObjectDescription<String> clone = new FullObjectDescription<>(attributes);
+
+        clone.clone();
+    }
+
+    @Test
+    public void ImpToString() {
+        FormalContext<String, String> test = new FormalContext<>();
+        FullObjectDescription<String> o = new FullObjectDescription<>();
+        Set<String> p = new HashSet<>();
+        Set<String> c = new HashSet<>();
+        Implication<String> imp = new Implication<>(p,c);
+
+        p.add("premise");
+        c.add("conclusion");
+
+        imp.getPremise();
+        imp.getConclusion();
+
+
+        imp.toString();
+        test.toString();
+        assertEquals("[premise] -> [conclusion]", imp.toString());
+    }
+
+    @Test
+    public void implicationSet() {
+        FormalContext<String, String> test = new FormalContext<>();
+        FullObjectDescription<String> o = new FullObjectDescription<>();
+        Implication<String> imp = new Implication<>();
+        ImplicationSet<String> impSet = new ImplicationSet<String>(test);
+         assertTrue(impSet.add(imp));
+    }
+
+    @Test
+    public void isClosed4() {
+        FormalContext<String, String> test = new FormalContext<>();
+        FullObjectDescription<String> o = new FullObjectDescription<>();
+        Implication<String> imp = new Implication<>();
+        ImplicationSet<String> impSet = new ImplicationSet<String>(test);
+
+         Set<String> set = new HashSet<>();
+         Set<String> set2 = test.closure(set);
+
+        impSet.add(imp);
+        assertTrue(imp.getPremise().isEmpty());
+        assertTrue(test.isClosed(set2));
+    }
+
+    @Test
+    public void closeSet() {
+        FormalContext<String, String> test = new FormalContext<>();
+        FullObjectDescription<String> o = new FullObjectDescription<>();
+        Implication<String> imp = new Implication<>();
+        ImplicationSet<String> impSet = new ImplicationSet<String>(test);
+
+        Set<String> set = new HashSet<>();
+        set.add("a");
+        Set<String> set2 = test.closure(set);
+
+        impSet.add(imp);
+        assertTrue(imp.getPremise().isEmpty());
+        assertTrue(test.isClosed(set2));
+
+        Set<String> set3 = new LinkedHashSet<>();
+        Set<Set<String>> set4 = impSet.closuresStartingFrom(set3);
+
+        assertEquals(set4, impSet.allClosures());
+    }
+
+    @Test
+    public void clearObjects2() throws IllegalObjectException {
+        FormalContext<String, String> t12 = new FormalContext<>();
+        FullObject<String, String> o = new FullObject<>("object");
+
+        t12.addObject(o);
+        t12.clearObjects();
+        assertEquals(0, t12.getObjectCount());
+    }
+
+    @Test
+    public void getQuestion() {
+        QuestionRejectedAction<String, String, FullObject<String, String>> ex5 = new QuestionRejectedAction<>();
+        ex5.getQuestion();
+    }
+
+    @Test
+    public void setQuestion() {
+        QuestionRejectedAction<String, String, FullObject<String, String>> ex5 = new QuestionRejectedAction<>();
+        FCAImplication<String> imp = ex5.getQuestion();
+        ex5.setQuestion(imp);
+    }
+
+    @Test
+    public void setContext() {
+        FormalContext<String, String> test = new FormalContext<>();
+        ResetExplorationAction<String,String,FullObject<String,String>> rea = new ResetExplorationAction<String, String, FullObject<String, String>>(test);
+        rea.setContext(test);
+    }
+
+    @Test
+    public void ResetAction() throws IllegalObjectException {
+        FormalContext<String, String> test = new FormalContext<>();
+        ResetExplorationAction<String,String,FullObject<String,String>> rea = new ResetExplorationAction<String, String, FullObject<String, String>>(test);
+        FullObject<String, String> o = new FullObject<>("object");
+
+        int id = 1;
+        String command = "command";
+        ActionEvent e = new ActionEvent(o, id, command);
+
+        test.addObject(o);
+        test.addAttribute("a");
+
+        rea.actionPerformed(e);
+    }
 
 
 }

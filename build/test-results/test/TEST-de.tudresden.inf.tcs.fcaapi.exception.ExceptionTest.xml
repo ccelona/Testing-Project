@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tudresden.inf.tcs.fcaapi.exception.ExceptionTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-05-13T03:37:30" hostname="Chrissys-MBP.hsd1.nj.comcast.net" time="0.007">
+  <properties/>
+  <testcase name="IllegalContextExceptionString" classname="de.tudresden.inf.tcs.fcaapi.exception.ExceptionTest" time="0.0"/>
+  <testcase name="IllegalExpertException" classname="de.tudresden.inf.tcs.fcaapi.exception.ExceptionTest" time="0.0"/>
+  <testcase name="IllegalAttributeException" classname="de.tudresden.inf.tcs.fcaapi.exception.ExceptionTest" time="0.0"/>
+  <testcase name="IllegalAttributeExceptionString" classname="de.tudresden.inf.tcs.fcaapi.exception.ExceptionTest" time="0.0"/>
+  <testcase name="IllegalExpertExceptionString" classname="de.tudresden.inf.tcs.fcaapi.exception.ExceptionTest" time="0.003"/>
+  <testcase name="IllegalContextException" classname="de.tudresden.inf.tcs.fcaapi.exception.ExceptionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -458,7 +458,32 @@ public class ListSetTest {
      *
      ********************/
 
+    @Test
+    public void retainAll4() {
+        ListSet test = new ListSet();
+        Collection collection = new ArrayList();
 
+        collection.add(5);
+        collection.add(4);
+        collection.add(3);
+
+        test.add(5);
+        test.add(2);
+        test.add(1);
+
+        test.retainAll(collection);
+    }
+
+    @Test
+    public void removeAll1() {
+        ListSet test = new ListSet();
+        Collection collection = new ArrayList();
+        collection.add(5);
+        collection.add(4);
+        collection.add(3);
+
+        test.removeAll(collection);
+    }
 
 
 }

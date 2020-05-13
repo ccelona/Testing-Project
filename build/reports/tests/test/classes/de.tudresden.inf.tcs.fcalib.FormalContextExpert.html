@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class de.tudresden.inf.tcs.fcalib.FormalContextExpert</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class de.tudresden.inf.tcs.fcalib.FormalContextExpert</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/de.tudresden.inf.tcs.fcalib.html">de.tudresden.inf.tcs.fcalib</a> &gt; FormalContextExpert</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.057s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testFormalContext</td>
+<td class="success">0.057s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>Attributes: { a b c }
+0 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.StartExplorationAction  - == Exploration starting ===
+1 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: []
+1 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+3 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [] -&gt; [a, b, c]
+5 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 0 attributes: []}
+5 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: []
+5 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: []
+6 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [c]
+6 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+6 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [c] -&gt; [a, b]
+6 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 1 attributes: [c]}
+6 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [c]
+6 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [c]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [b]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+7 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [b] -&gt; [a, c]
+7 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 2 attributes: [b]}
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [b]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [b]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [b, c]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+7 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [b, c] -&gt; [a]
+8 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 3 attributes: [b, c]}
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [b, c]
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [b, c]
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a]
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+8 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [a] -&gt; [b, c]
+8 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 4 attributes: [a]}
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a]
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a]
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, c]
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+9 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [a, c] -&gt; [b]
+9 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 5 attributes: [a, c]}
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, c]
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, c]
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, b]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+10 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [a, b] -&gt; [c]
+10 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 6 attributes: [a, b]}
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, b]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, b, c]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: null
+10 [Test worker] INFO de.tudresden.inf.tcs.fcalib.AbstractContext  - === Exploration finished ===
+10 [Test worker] INFO de.tudresden.inf.tcs.fcalib.NoExpertFull  - === End of exploration ===
+11 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - objects: { {id: 0 attributes: []} {id: 1 attributes: [c]} {id: 2 attributes: [b]} {id: 3 attributes: [b, c]} {id: 4 attributes: [a]} {id: 5 attributes: [a, c]} {id: 6 attributes: [a, b]} }
+13 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.StopExplorationAction  - === Expert stopped exploration ===
+13 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.ResetExplorationAction  - === Expert reset exploration ===
+14 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionConfirmedAction  - Expert confirmed implication: [a, b] -&gt; [c]
+15 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: []
+15 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: []
+15 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: null
+15 [Test worker] INFO de.tudresden.inf.tcs.fcalib.AbstractContext  - === Exploration finished ===
+15 [Test worker] INFO de.tudresden.inf.tcs.fcalib.NoExpertFull  - === End of exploration ===
+15 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - objects: { }
+
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 6.3</a> at May 12, 2020 11:37:30 PM</p>
+</div>
+</div>
+</body>
+</html>

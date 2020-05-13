@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" tests="49" skipped="0" failures="0" errors="0" timestamp="2020-05-13T03:37:29" hostname="Chrissys-MBP.hsd1.nj.comcast.net" time="0.038">
+  <properties/>
+  <testcase name="containsAll2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="containsAll3" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="getIndexOf2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="changeOrder" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="testToArray2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.004"/>
+  <testcase name="testToArray" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="retainAll" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="equals2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.001"/>
+  <testcase name="equals3" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="addAll" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="getIndexOf" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="equals" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="toArray" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="addAll2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="testToString" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="remove" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.001"/>
+  <testcase name="isEmpty2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="contains" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.001"/>
+  <testcase name="contains2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="contains3" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="getElementAt" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="changeOrder2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="add" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="add2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="add3" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="next" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="size" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="test" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="clear" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="next2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="test1" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="test2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.001"/>
+  <testcase name="test3" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.001"/>
+  <testcase name="hasNext2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="containsAll" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="getElementAt2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="retainAll2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.005"/>
+  <testcase name="retainAll3" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.001"/>
+  <testcase name="retainAll4" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="hasNext" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.001"/>
+  <testcase name="remove2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="remove3" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="removeAll1" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.001"/>
+  <testcase name="removeAll2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="removeAll3" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="iterator" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="removeAll" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="testToString2" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <testcase name="isEmpty" classname="de.tudresden.inf.tcs.fcalib.utils.ListSetTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

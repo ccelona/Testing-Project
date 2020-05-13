@@ -1,8 +1,3 @@
-//package de.tudresden.inf.tcs.fcalib;
-//
-//public class FormalContextExpert<T> {
-//}
-
 package de.tudresden.inf.tcs.fcalib;
 
 import de.tudresden.inf.tcs.fcaapi.exception.IllegalAttributeException;
@@ -226,10 +221,30 @@ public class FormalContextExpert extends TestCase {
         Implication<String> imp3 = imp2;
         assertTrue(imp2.equals(imp3));
 
+
+
+
         CounterExampleProvidedAction<String,String,FullObject<String,String>> provided = new CounterExampleProvidedAction<String,String,FullObject<String,String>>(context,imp,o);
         CounterExampleProvidedAction<String,String,FullObject<String,String>> provided2 = new CounterExampleProvidedAction<String,String,FullObject<String,String>>(null,null,null);
         provided.getCounterExample();
         provided2.getCounterExample();
+
+
+
+        //Mutation coverage
+        Object y = new Object();
+        ExpertAction<String, String> ex4 = new ExpertAction<String, String>(y, 2, imp, "test"); //MADE CLASS PUBLIC
+        ex3.getType();
+        ex3.getQuestion();
+        ex3.getCounterExample();
+
+        assertTrue(ex4.getType() == 2);
+        assertTrue(ex4.getQuestion() == imp);
+        assertTrue(ex4.getCounterExample() == "test");
+
+
+
+
     }
 
 }

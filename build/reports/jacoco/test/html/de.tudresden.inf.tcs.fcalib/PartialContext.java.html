@@ -243,8 +243,8 @@ public class PartialContext&lt;A,I,O extends PartialObject&lt;A,I&gt;&gt; extend
 <span class="fc bfc" id="L243" title="All 2 branches covered.">		if (!containsObject(id)) {</span>
 <span class="fc" id="L244">			throw new IllegalObjectException(&quot;Object &quot; + id + &quot;does not exist&quot;);</span>
 		}
-<span class="pc bpc" id="L246" title="1 of 2 branches missed.">		if (!getObject(id).getDescription().containsAttribute(attribute)) {</span>
-<span class="nc" id="L247">			throw new IllegalAttributeException(&quot;Object does not have attribute &quot; + attribute);</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">		if (!getObject(id).getDescription().containsAttribute(attribute)) {</span>
+<span class="fc" id="L247">			throw new IllegalAttributeException(&quot;Object does not have attribute &quot; + attribute);</span>
 		}
 <span class="fc" id="L249">		return getObject(id).getDescription().removeAttribute(attribute);</span>
 	}
@@ -309,7 +309,7 @@ public class PartialContext&lt;A,I,O extends PartialObject&lt;A,I&gt;&gt; extend
 	// 	// TODO: update the descriptions of the partial objects in the context!
 	// }
 	
-	protected boolean followsFromBackgroundKnowledge(FCAImplication&lt;A&gt; implication) {
+	public boolean followsFromBackgroundKnowledge(FCAImplication&lt;A&gt; implication) {
 		// TODO: 
 <span class="fc" id="L314">		return false;</span>
 	}

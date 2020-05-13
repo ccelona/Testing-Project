@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tudresden.inf.tcs.fcalib.FormalContextTest" tests="59" skipped="0" failures="0" errors="0" timestamp="2020-05-13T03:37:29" hostname="Chrissys-MBP.hsd1.nj.comcast.net" time="0.496">
+  <properties/>
+  <testcase name="followsFromBackgroundKnowledge" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="followsFromBackgroundKnowledge2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="clearObjects" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="doublePrime" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="getDuquenneGuiguesBase" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="clone2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="removeAttributeFromObject2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="removeAttributeFromObject3" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="removeAttributeFromObject4" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="getIntents" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="objectNotRemoved" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.015"/>
+  <testcase name="getObjectAtIndex" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="removeObject" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="getStemBase" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="refutes2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="isClosed" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="clearObjects2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="isCounterExampleValid2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="isCounterExampleValid3" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="getObject2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="removeObject2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="removeObject3" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="removeObject4" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="setContext" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="getExtents" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="ImpToString" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="implicationSet" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="addObject" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="getName" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="clear" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="setExpert" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="addObject2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="isClosed2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="isClosed3" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="isClosed4" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="ResetAction" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.448"/>
+  <testcase name="addAttributeToObj" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="getExpert" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="isCounterExampleValid" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="getObject" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="objectHasAttribute" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.002"/>
+  <testcase name="toString2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.002"/>
+  <testcase name="removeAttributeFromObject" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="setQuestion" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="closure" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="getQuestion" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="doublePrime2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="refutes" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="closeSet" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="closure2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="getConceptLattice" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="addAttributeToObject2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="addAttributeToObject3" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="addAttributeToObject4" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="allClosures" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="getConcepts" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="objectHasAttribute2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.001"/>
+  <testcase name="setExpert2" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <testcase name="addAttributeToObject" classname="de.tudresden.inf.tcs.fcalib.FormalContextTest" time="0.0"/>
+  <system-out><![CDATA[523 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.ResetExplorationAction  - === Expert reset exploration ===
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

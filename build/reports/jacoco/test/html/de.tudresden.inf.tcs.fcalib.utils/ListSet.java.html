@@ -245,7 +245,7 @@ public class ListSet&lt;T&gt; implements IndexedSet&lt;T&gt; {
 	public boolean removeAll(Collection&lt;?&gt; c) {
 <span class="fc" id="L246">		boolean retCode = false;</span>
 <span class="fc bfc" id="L247" title="All 2 branches covered.">		for (Iterator&lt;?&gt; it = c.iterator(); it.hasNext();) {</span>
-<span class="pc bpc" id="L248" title="2 of 4 branches missed.">			retCode = retCode || remove(it.next());</span>
+<span class="pc bpc" id="L248" title="1 of 4 branches missed.">			retCode = retCode || remove(it.next());</span>
 		}
 <span class="fc" id="L250">		return retCode;</span>
 	}
@@ -262,7 +262,7 @@ public class ListSet&lt;T&gt; implements IndexedSet&lt;T&gt; {
 	public boolean retainAll(Collection&lt;?&gt; c) {
 <span class="fc" id="L263">		boolean retCode = false;</span>
 <span class="fc bfc" id="L264" title="All 2 branches covered.">		for (T element : this) {</span>
-<span class="pc bpc" id="L265" title="1 of 2 branches missed.">			if (!c.contains(element)) {</span>
+<span class="fc bfc" id="L265" title="All 2 branches covered.">			if (!c.contains(element)) {</span>
 <span class="pc bpc" id="L266" title="1 of 4 branches missed.">				retCode = retCode || remove(element);</span>
 			}
 <span class="fc" id="L268">		}</span>

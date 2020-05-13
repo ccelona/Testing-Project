@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="de.tudresden.inf.tcs.fcalib.FormalContextExpert" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-05-13T03:37:29" hostname="Chrissys-MBP.hsd1.nj.comcast.net" time="0.057">
+  <properties/>
+  <testcase name="testFormalContext" classname="de.tudresden.inf.tcs.fcalib.FormalContextExpert" time="0.057"/>
+  <system-out><![CDATA[Attributes: { a b c }
+0 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.StartExplorationAction  - == Exploration starting ===
+1 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: []
+1 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+3 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [] -> [a, b, c]
+5 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 0 attributes: []}
+5 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: []
+5 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: []
+6 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [c]
+6 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+6 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [c] -> [a, b]
+6 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 1 attributes: [c]}
+6 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [c]
+6 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [c]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [b]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+7 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [b] -> [a, c]
+7 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 2 attributes: [b]}
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [b]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [b]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [b, c]
+7 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+7 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [b, c] -> [a]
+8 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 3 attributes: [b, c]}
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [b, c]
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [b, c]
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a]
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+8 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [a] -> [b, c]
+8 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 4 attributes: [a]}
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a]
+8 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a]
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, c]
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+9 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [a, c] -> [b]
+9 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 5 attributes: [a, c]}
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, c]
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, c]
+9 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, b]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+10 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionRejectedAction  - Expert rejected implication: [a, b] -> [c]
+10 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.CounterExampleProvidedAction  - Expert provided counterexample: {id: 6 attributes: [a, b]}
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, b]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: [a, b, c]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: [a, b, c]
+10 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: null
+10 [Test worker] INFO de.tudresden.inf.tcs.fcalib.AbstractContext  - === Exploration finished ===
+10 [Test worker] INFO de.tudresden.inf.tcs.fcalib.NoExpertFull  - === End of exploration ===
+11 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - objects: { {id: 0 attributes: []} {id: 1 attributes: [c]} {id: 2 attributes: [b]} {id: 3 attributes: [b, c]} {id: 4 attributes: [a]} {id: 5 attributes: [a, c]} {id: 6 attributes: [a, b]} }
+13 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.StopExplorationAction  - === Expert stopped exploration ===
+13 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.ResetExplorationAction  - === Expert reset exploration ===
+14 [Test worker] INFO de.tudresden.inf.tcs.fcalib.action.QuestionConfirmedAction  - Expert confirmed implication: [a, b] -> [c]
+15 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: []
+15 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - conclusion: []
+15 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - premise: null
+15 [Test worker] INFO de.tudresden.inf.tcs.fcalib.AbstractContext  - === Exploration finished ===
+15 [Test worker] INFO de.tudresden.inf.tcs.fcalib.NoExpertFull  - === End of exploration ===
+15 [Test worker] DEBUG de.tudresden.inf.tcs.fcalib.AbstractContext  - objects: { }
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
